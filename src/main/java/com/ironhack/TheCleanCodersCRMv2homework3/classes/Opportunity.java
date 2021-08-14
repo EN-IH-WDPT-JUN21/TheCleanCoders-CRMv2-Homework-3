@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Opportunity extends Item{
+public class Opportunity {
 
     //Properties
-
+    private Long opportunityId;
     private Product product;
     private int quantity;
     private Contact decisionMaker;
     private Status status;
-    public static List<Item> allOpportunities = new ArrayList<>();
+//    public static List<Item> allOpportunities = new ArrayList<>();
 
     //Constructor
 
     public Opportunity(Product product, int quantity, Contact decisionMaker) {
-        super(allOpportunities);
+//        super(allOpportunities);
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
@@ -29,7 +29,7 @@ public class Opportunity extends Item{
     }
 
     public Opportunity(int id, Product product, int quantity, Contact decisionMaker, Status status) {
-        super(id, allOpportunities);
+//        super(id, allOpportunities);
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
@@ -85,20 +85,20 @@ public class Opportunity extends Item{
         return status;
     }
 
-    public static List<Item> getAllOpportunities() {
-        return allOpportunities;
-    }
+//    public static List<Item> getAllOpportunities() {
+//        return allOpportunities;
+//    }
 
     public String getOpportunityInfo() {
         return "Product: " + this.product + ". Quantity: " + this.quantity + ". STATUS: " + this.status;
     }
 
-    @Override
-    public String toString() {
-        return "=== Opportunity " + getId() + " ===" + '\n' +
-                "· product : " + product + '\n' +
-                "· quantity : " + quantity + '\n' +
-                "· decision maker -> " + decisionMaker.toStringInOppClass() + '\n' +
-                "· status : " + status + '\n';
-    }
+//    @Override
+//    public String toString() {
+//        return "=== Opportunity " + getId() + " ===" + '\n' +
+//                "· product : " + product + '\n' +
+//                "· quantity : " + quantity + '\n' +
+//                "· decision maker -> " + decisionMaker.toStringInOppClass() + '\n' +
+//                "· status : " + status + '\n';
+//    }
 }

@@ -4,19 +4,20 @@ package com.ironhack.TheCleanCodersCRMv2homework3.classes;
 
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account extends Item{
+@Entity
+public class Account {
 
-    // Properties
-
+    private Long accountId;
     private String companyName;
     private Industry industry;
     private int employeeCount;
     private String city;
     private String country;
-    public static List<Item> allAccounts = new ArrayList<>();
+//    public static List<Item> allAccounts = new ArrayList<>();
 
 
     private List<Contact> contactList = new ArrayList<>();
@@ -25,7 +26,7 @@ public class Account extends Item{
     // Constructor
 
     public Account(Contact contact, Opportunity opportunity, Industry industry, int employeeCount, String city, String country) {
-        super(allAccounts);
+//        super(allAccounts);
         // The CRM takes the Company name from Lead Object
         setCompanyName(contact.getCompanyName());
         // The CRM prompts user for the industry, number of employees, city, and country of Mike’s company.
@@ -39,7 +40,7 @@ public class Account extends Item{
     }
 
     public Account(int id, Contact contact, Opportunity opportunity, String companyName, Industry industry, int employeeCount, String city, String country) {
-        super(id, allAccounts);
+//        super(id, allAccounts);
         setCompanyName(companyName);
         setIndustry(industry);
         setEmployeeCount(employeeCount);
@@ -101,9 +102,9 @@ public class Account extends Item{
         this.country = country;
     }
 
-    public static List<Item> getAllAccounts() {
-        return allAccounts;
-    }
+//    public static List<Item> getAllAccounts() {
+//        return allAccounts;
+//    }
 
     public List<Contact> getContactList() {
         return this.contactList;
@@ -113,12 +114,12 @@ public class Account extends Item{
         return this.opportunityList;
     }
 
-    @Override
-    public String toString() {
-        return "=== Account " + getId() + " ===" + '\n' +
-                "· industry : " + industry + '\n' +
-                "· employeeCount : " + employeeCount + '\n' +
-                "· city : " + city + '\n' +
-                "· country : " + country + '\n';
-    }
+//    @Override
+//    public String toString() {
+//        return "=== Account " + getId() + " ===" + '\n' +
+//                "· industry : " + industry + '\n' +
+//                "· employeeCount : " + employeeCount + '\n' +
+//                "· city : " + city + '\n' +
+//                "· country : " + country + '\n';
+//    }
 }

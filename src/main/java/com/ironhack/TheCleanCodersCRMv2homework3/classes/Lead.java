@@ -6,42 +6,42 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Lead extends Item {
+public class Lead {
 
     // Properties
-
+    private Long leadId;
     private String name;
     private String phoneNumber;
     private String email;
     private String companyName;
-    public static List<Item> allLeads = new ArrayList<>();
+//    public static List<Item> allLeads = new ArrayList<>();
 
     // Constructor
 
     public Lead(String name, String phoneNumber, String email, String companyName) {
-        super(allLeads);
+//        super(allLeads);
         setName(name);
         setPhoneNumber(phoneNumber);
         setEmail(email);
         setCompanyName(companyName);
     }
 
-    public Lead(int id, String name, String phoneNumber, String email, String companyName) {
-        super(id, allLeads);
-        setName(name);
-        setPhoneNumber(phoneNumber);
-        setEmail(email);
-        setCompanyName(companyName);
-    }
+//    public Lead(int id, String name, String phoneNumber, String email, String companyName) {
+////        super(id, allLeads);
+//        setName(name);
+//        setPhoneNumber(phoneNumber);
+//        setEmail(email);
+//        setCompanyName(companyName);
+//    }
 
     //Methods
 
     public static void removeItem(Lead lead) {
-        for (int i = 0; i < allLeads.size(); i++) {
-            if (lead.equals(allLeads.get(i))) {
-                allLeads.remove(i);
-            }
-        }
+//        for (int i = 0; i < allLeads.size(); i++) {
+//            if (lead.equals(allLeads.get(i))) {
+//                allLeads.remove(i);
+//            }
+//        }
     }
 
     // Getters and setters
@@ -89,17 +89,17 @@ public class Lead extends Item {
         this.companyName = companyName;
     }
 
-    public static List<Item> getAllLeads () {
-        return allLeads;
-    }
+//    public static List<Item> getAllLeads () {
+//        return allLeads;
+//    }
 
-    @Override
-    public String toString () {
-        return "=== Lead " + getId() + " ===" + '\n' +
-                "· name : " + name + '\n' +
-                "· phone number : " + phoneNumber + '\n' +
-                "· email : " + email + '\n' +
-                "· company name : " + companyName + '\n';
-    }
+//    @Override
+//    public String toString () {
+//        return "=== Lead " + getId() + " ===" + '\n' +
+//                "· name : " + name + '\n' +
+//                "· phone number : " + phoneNumber + '\n' +
+//                "· email : " + email + '\n' +
+//                "· company name : " + companyName + '\n';
+//    }
 
 }

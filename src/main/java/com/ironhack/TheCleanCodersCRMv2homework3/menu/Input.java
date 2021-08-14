@@ -17,7 +17,7 @@ public class Input {
     }
 
     public String getString() {
-        printer.print(">");
+        System.out.print(">");
         return scanner.nextLine();
     }
 

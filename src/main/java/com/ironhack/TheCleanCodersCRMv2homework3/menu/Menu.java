@@ -149,16 +149,16 @@ public class Menu {
     public void lookup(ObjectType objectType, int id) {
         switch (objectType) {
             case ACCOUNT:
-                printer.print(Account.getById(id, Account.getAllAccounts()).toString());
+//                printer.print(Account.getById(id, Account.getAllAccounts()).toString());
                 break;
             case CONTACT:
-                printer.print(Contact.getById(id, Contact.getAllContacts()).toString());
+//                printer.print(Contact.getById(id, Contact.getAllContacts()).toString());
                 break;
             case LEAD:
-                printer.print(Lead.getById(id, Lead.getAllLeads()).toString());
+//                printer.print(Lead.getById(id, Lead.getAllLeads()).toString());
                 break;
             case OPPORTUNITY:
-                printer.print(Opportunity.getById(id, Opportunity.getAllOpportunities()).toString());
+//                printer.print(Opportunity.getById(id, Opportunity.getAllOpportunities()).toString());
                 break;
         }
     }
@@ -167,17 +167,17 @@ public class Menu {
         // When a Lead is converted, Contact, Opportunity and Account are automatically created
         // and the Lead must be deleted.
         System.out.println("\nConverting LEAD nº " + id + " to CONTACT, OPPORTUNITY and ACCOUNT\n");
-        Lead lead = (Lead) Lead.getById(id, Lead.getAllLeads());
-        creator.createContact(lead);
-        creator.createOpportunityByLeadConversion();
-        creator.createAccount(lead);
-        Lead.removeItem(lead);
+//        Lead lead = (Lead) Lead.getById(id, Lead.getAllLeads());
+//        creator.createContact(lead);
+//        creator.createOpportunityByLeadConversion();
+//        creator.createAccount(lead);
+//        Lead.removeItem(lead);
     }
 
     public void changeStatus(Status status, int id) {
         System.out.println("Changes OPPORTUNITY with an id of " + id + " status to " + status + ".");
-        Opportunity opportunity = (Opportunity) Opportunity.getById(id, Opportunity.getAllOpportunities());
-        opportunity.setStatus(status);
+//        Opportunity opportunity = (Opportunity) Opportunity.getById(id, Opportunity.getAllOpportunities());
+//        opportunity.setStatus(status);
 
     }
 }

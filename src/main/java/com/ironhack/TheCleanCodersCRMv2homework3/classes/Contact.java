@@ -3,23 +3,25 @@ package com.ironhack.TheCleanCodersCRMv2homework3.classes;
 
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Contact extends Item{
+public class Contact {
 
     // Properties
-
+    private Long contactId;
     private String name;
     private String phoneNumber;
     private String email;
     private String companyName;
-    public static List<Item> allContacts = new ArrayList<>();
+//    public static List<Item> allContacts = new ArrayList<>();
 
     // Constructor
 
+    @Entity
     public Contact(Lead lead) {
-        super(allContacts);
+//        super(allContacts);
         setName(lead.getName());
         setPhoneNumber(lead.getPhoneNumber());
         setEmailAddress(lead.getEmail());
@@ -27,7 +29,7 @@ public class Contact extends Item{
     }
 
     public Contact(int id, String name, String phoneNumber, String email, String companyName) {
-        super(id, allContacts);
+//        super(id, allContacts);
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -68,9 +70,9 @@ public class Contact extends Item{
         this.companyName = companyName;
     }
 
-    public static List<Item> getAllContacts() {
-        return allContacts;
-    }
+//    public static List<Item> getAllContacts() {
+//        return allContacts;
+//    }
 
     @Override
     public String toString() {

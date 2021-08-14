@@ -10,27 +10,26 @@ public class Printer {
     }
 
     public void printAllAccounts() {
-        for (Item account : Account.allAccounts) {
-            print(account.toString());
-        }
+//        this method has to be created using the database
+
     }
 
     public void printAllContacts() {
-        for (Item contact : Contact.allContacts) {
-            print(contact.toString());
-        }
+//        for (Item contact : Contact.allContacts) {
+//            print(contact.toString());
+//        }
     }
 
     public void printAllLeads() {
-        for(Item lead : Lead.allLeads) {
-            print(lead.toString());
-        }
+//        for(Item lead : Lead.allLeads) {
+//            print(lead.toString());
+//        }
     }
 
     public void printAllOpportunities() {
-        for (Item opportunity : Opportunity.allOpportunities) {
-            print(opportunity.toString());
-        }
+//        for (Item opportunity : Opportunity.allOpportunities) {
+//            print(opportunity.toString());
+//        }
     }
 
     public void printTypoInfo(String wrongWord) {

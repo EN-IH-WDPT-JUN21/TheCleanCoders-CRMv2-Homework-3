@@ -61,11 +61,11 @@ public class Creator {
 
         } while (!errorCountry);
 
-        Account account = new Account((Contact) Contact.allContacts.get(Contact.allContacts.size()-1),
-                (Opportunity) Opportunity.allOpportunities.get(Opportunity.allOpportunities.size()-1),
-                industry, employeeCount, city, country);
+//        Account account = new Account((Contact) Contact.allContacts.get(Contact.allContacts.size()-1),
+//                (Opportunity) Opportunity.allOpportunities.get(Opportunity.allOpportunities.size()-1),
+//                industry, employeeCount, city, country);
         System.out.println("\nNew ACCOUNT created:");
-        System.out.println(account.toString());
+//        System.out.println(account.toString());
 
     }
 
@@ -76,11 +76,11 @@ public class Creator {
 
         System.out.println("\nPlease insert related CONTACT id number:");
         int contactId = input.getIntegerHigherThanZero();
-        Contact contact = (Contact) Contact.getById(contactId, Contact.allContacts);
+//        Contact contact = (Contact) Contact.getById(contactId, Contact.allContacts);
 
         System.out.println("\nPlease insert related OPPORTUNITY id number");
         int opportunityId = input.getIntegerHigherThanZero();
-        Opportunity opportunity = (Opportunity) Opportunity.getById(opportunityId, Opportunity.allOpportunities);
+//        Opportunity opportunity = (Opportunity) Opportunity.getById(opportunityId, Opportunity.allOpportunities);
 
         System.out.println("\nPlease choose the Industry of the related Company:");
         Industry industry = input.chooseIndustry();
@@ -120,9 +120,9 @@ public class Creator {
 
         } while (!errorCountry);
 
-        Account account = new Account(contact, opportunity, industry, employeeCount, city, country);
+//        Account account = new Account(contact, opportunity, industry, employeeCount, city, country);
         System.out.println("\nNew ACCOUNT created:");
-        System.out.println(account.toString());
+//        System.out.println(account.toString());
 
     }
 
@@ -138,11 +138,11 @@ public class Creator {
 
         System.out.println("\nPlease insert LEAD Id to be used:");
         int idLead = input.getIntegerHigherThanZero();
-        Lead lead = (Lead) Lead.getById(idLead, Lead.allLeads);
-        Contact contact = new Contact(lead);
+//        Lead lead = (Lead) Lead.getById(idLead, Lead.allLeads);
+//        Contact contact = new Contact(lead);
 
         System.out.println("\nNew CONTACT created:");
-        System.out.println(contact);
+//        System.out.println(contact);
 
     }
 
@@ -234,10 +234,10 @@ public class Creator {
         //This method should be implemented right after the createContact method, and both are triggered by the
         // "convert <id number>" command. So it will use the last contact it was created in the allContactsList array.
         //Constructing the Opportunity object, and storing it in the allOpportunitiesList:
-        Opportunity opportunity = new Opportunity(product, quantity,
-                (Contact) Contact.allContacts.get(Contact.allContacts.size()-1));
+//        Opportunity opportunity = new Opportunity(product, quantity,
+//                (Contact) Contact.allContacts.get(Contact.allContacts.size()-1));
         System.out.println("\n\nA new Opportunity was created as follows:");
-        System.out.println(opportunity);
+//        System.out.println(opportunity);
     }
 
     // Method used when an OPPORTUNITY is created independently, it still depends on a CONTACT id
@@ -253,10 +253,10 @@ public class Creator {
         System.out.println("\nQuantity of trucks:");
         int quantity = input.getIntegerHigherThanZero();
 
-        Opportunity opportunity = new Opportunity(product, quantity,
-                (Contact) Contact.getById(contactId, Contact.allContacts));
+//        Opportunity opportunity = new Opportunity(product, quantity,
+//                (Contact) Contact.getById(contactId, Contact.allContacts));
         System.out.println("\nNew OPPORTUNITY created as follows:");
-        System.out.println(opportunity);
+//        System.out.println(opportunity);
     }
 
 }
