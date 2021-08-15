@@ -214,7 +214,7 @@ public class Creator {
 
         } while (!errorCompany);
 
-        Lead lead = new Lead(name, phoneNumber, email, companyName);
+        Lead lead = new Lead(name, phoneNumber, email, companyName, salesRep);
 
         // Print a LEAD creation message, using Lead.toString method on the last element of leadsList, newly created
         System.out.println("\nA new LEAD was created with the following info:");

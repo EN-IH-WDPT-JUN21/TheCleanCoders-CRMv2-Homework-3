@@ -1,24 +1,38 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.classes;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Entity
+@NoArgsConstructor
 public class Lead {
 
     // Properties
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long leadId;
     private String name;
+    @Column(name = "phone_number")
     private String phoneNumber;
     private String email;
+    @Column(name = "company_name")
     private String companyName;
+    @ManyToOne
+    @JoinColumn(name = "sales_rep")
+    private SalesRep salesRep;
+
+
 //    public static List<Item> allLeads = new ArrayList<>();
 
     // Constructor
 
-    public Lead(String name, String phoneNumber, String email, String companyName) {
+    public Lead(String name, String phoneNumber, String email, String companyName, SalesRep salesRep) {
 //        super(allLeads);
         setName(name);
         setPhoneNumber(phoneNumber);
