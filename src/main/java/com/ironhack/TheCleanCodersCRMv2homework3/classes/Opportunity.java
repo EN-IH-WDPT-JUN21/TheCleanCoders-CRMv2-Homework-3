@@ -3,102 +3,60 @@ package com.ironhack.TheCleanCodersCRMv2homework3.classes;
 
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class Opportunity {
 
-    //Properties
-    private Long opportunityId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    @Enumerated
     private Product product;
     private int quantity;
+    @OneToOne
+    @JoinColumn(name = "decision_maker")
     private Contact decisionMaker;
+    @Enumerated
     private Status status;
-//    public static List<Item> allOpportunities = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sales_rep")
+    private SalesRep salesRep;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account")
+    private Account account;
 
-    //Constructor
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker) {
-//        super(allOpportunities);
+    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep) {
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
         setStatus(Status.OPEN);
+        setSalesRep(salesRep);
     }
 
-    public Opportunity(int id, Product product, int quantity, Contact decisionMaker, Status status) {
-//        super(id, allOpportunities);
-        setProduct(product);
-        setQuantity(quantity);
-        setDecisionMaker(decisionMaker);
-        setStatus(status);
-    }
-
-    // Methods
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Opportunity that = (Opportunity) o;
-        return quantity == that.quantity && product == that.product && Objects.equals(decisionMaker, that.decisionMaker) && status == that.status;
+        return quantity == that.quantity
+                && product == that.product
+                && Objects.equals(decisionMaker, that.decisionMaker)
+                && status == that.status;
     }
-
-    // Setters
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setQuantity(int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("The number of trucks must be greater than zero.");
-        }
-        this.quantity = quantity;
-    }
-
-    public void setDecisionMaker(Contact decisionMaker) {
-        this.decisionMaker = decisionMaker;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    //Getters
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public Contact getDecisionMaker() {
-        return this.decisionMaker;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-//    public static List<Item> getAllOpportunities() {
-//        return allOpportunities;
-//    }
 
     public String getOpportunityInfo() {
         return "Product: " + this.product + ". Quantity: " + this.quantity + ". STATUS: " + this.status;
     }
 
-//    @Override
-//    public String toString() {
-//        return "=== Opportunity " + getId() + " ===" + '\n' +
-//                "· product : " + product + '\n' +
-//                "· quantity : " + quantity + '\n' +
-//                "· decision maker -> " + decisionMaker.toStringInOppClass() + '\n' +
-//                "· status : " + status + '\n';
-//    }
 }

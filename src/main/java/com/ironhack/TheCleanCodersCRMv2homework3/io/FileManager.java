@@ -150,7 +150,7 @@ public class FileManager {
                 String phoneNumber = scanner.next();
                 String email = scanner.next();
                 String companyName = scanner.next();
-                new Contact(id, name, phoneNumber, email, companyName);
+                new Contact((long) id, name, phoneNumber, email, companyName);
             }
         } catch (FileNotFoundException exception) {
             printer.printImportErrorInfo(filename);
@@ -200,32 +200,4 @@ public class FileManager {
 //        }
     }
 
-
-
-//    public Product getProductFromString(String string) {
-//        for (Product product : Product.values()) {
-//            if (string.equals(product.name())) {
-//                return product;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    public Status getStatusFromString(String string) {
-//        for (Status status : Status.values()) {
-//            if (string.equals(status.name())) {
-//                return status;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    public Industry getIndustryFromString(String string) {
-//        for (Industry industry : Industry.values()) {
-//            if (string.equals(industry.name())) {
-//                return industry;
-//            }
-//        }
-//        return null;
-//    }
 }

@@ -3,25 +3,33 @@ package com.ironhack.TheCleanCodersCRMv2homework3.classes;
 
 
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class Account {
 
-    private Long accountId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     private String companyName;
+    @Enumerated
     private Industry industry;
     private int employeeCount;
     private String city;
     private String country;
-//    public static List<Item> allAccounts = new ArrayList<>();
-
-
-    private List<Contact> contactList = new ArrayList<>();
-    private List<Opportunity> opportunityList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @Column(name = "opportunity_list")
+    private Set<Opportunity> opportunityList;
 
     // Constructor
 
@@ -53,11 +61,11 @@ public class Account {
     // Methods
 
     public void addContactToList(Contact contact) {
-        contactList.add(contact);
+//        contactList.add(contact);
     }
 
     public void addOpportunityToList(Opportunity opportunity) {
-        opportunityList.add(opportunity);
+//        opportunityList.add(opportunity);
     }
 
     // Getters and setters
@@ -106,13 +114,13 @@ public class Account {
 //        return allAccounts;
 //    }
 
-    public List<Contact> getContactList() {
-        return this.contactList;
-    }
+//    public List<Contact> getContactList() {
+//        return this.contactList;
+//    }
 
-    public List<Opportunity> getOpportunityList() {
-        return this.opportunityList;
-    }
+//    public List<Opportunity> getOpportunityList() {
+//        return this.opportunityList;
+//    }
 
 //    @Override
 //    public String toString() {

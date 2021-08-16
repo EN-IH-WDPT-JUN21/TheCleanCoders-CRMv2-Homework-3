@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "sales_rep")
 public class SalesRep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

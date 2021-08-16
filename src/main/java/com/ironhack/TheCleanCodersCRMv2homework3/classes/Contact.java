@@ -2,34 +2,40 @@ package com.ironhack.TheCleanCodersCRMv2homework3.classes;
 
 
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class Contact {
 
-    // Properties
-    private Long contactId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     private String name;
+    @Column(name = "phone_number")
     private String phoneNumber;
     private String email;
+    @Column(name = "company_name")
     private String companyName;
-//    public static List<Item> allContacts = new ArrayList<>();
+    @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)
+    private Opportunity opportunity;
 
-    // Constructor
-
-    @Entity
     public Contact(Lead lead) {
-//        super(allContacts);
         setName(lead.getName());
         setPhoneNumber(lead.getPhoneNumber());
-        setEmailAddress(lead.getEmail());
+        setEmail(lead.getEmail());
         setCompanyName(lead.getCompanyName());
     }
 
-    public Contact(int id, String name, String phoneNumber, String email, String companyName) {
-//        super(id, allContacts);
+    public Contact(Long id, String name, String phoneNumber, String email, String companyName) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -38,41 +44,6 @@ public class Contact {
 
 // Setters and getters
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmailAddress(String email) {
-        this.email = email;
-    }
-
-    public String getCompanyName() {
-        return this.companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-//    public static List<Item> getAllContacts() {
-//        return allContacts;
-//    }
 
     @Override
     public String toString() {
