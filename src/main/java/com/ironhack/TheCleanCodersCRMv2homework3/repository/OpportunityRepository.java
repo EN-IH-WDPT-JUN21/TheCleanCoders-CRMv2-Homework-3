@@ -1,9 +1,10 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.repository;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.SalesRep;
+
+import com.ironhack.TheCleanCodersCRMv2homework3.classes.Opportunity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SalesRepRepository extends JpaRepository<SalesRep, Long> {
+public interface OpportunityRepository extends JpaRepository<Opportunity, Long> {
 }
