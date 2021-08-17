@@ -27,6 +27,9 @@ public class Contact {
     private String companyName;
     @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)
     private Opportunity opportunity;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account")
+    private Account account;
 
     public Contact(Lead lead) {
         setName(lead.getName());

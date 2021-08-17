@@ -28,6 +28,10 @@ public class Account {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     @Column(name = "opportunity_list")
     private Set<Opportunity> opportunityList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account") //Not sure about this one, but it's in the requirements
+    private Set<Contact> contactList;
+
+
     // Constructor
 
     public Account(Contact contact, Opportunity opportunity, Industry industry, int employeeCount, String city,
