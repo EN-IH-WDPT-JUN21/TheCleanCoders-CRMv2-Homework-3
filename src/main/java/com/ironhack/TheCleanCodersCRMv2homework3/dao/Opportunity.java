@@ -1,4 +1,4 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.classes;
+package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
 
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
@@ -19,18 +19,18 @@ public class Opportunity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Product product;
     private int quantity;
     @OneToOne
     @JoinColumn(name = "decision_maker")
     private Contact decisionMaker;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Status status;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sales_rep")
     private SalesRep salesRep;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "account")
     private Account account;
 

@@ -1,4 +1,4 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.classes;
+package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class Lead {
     private String email;
     @Column(name = "company_name")
     private String companyName;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sales_rep")
     private SalesRep salesRep;
 

@@ -1,16 +1,11 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.io;
 
 
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.*;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.menu.Printer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
@@ -150,7 +145,7 @@ public class FileManager {
                 String phoneNumber = scanner.next();
                 String email = scanner.next();
                 String companyName = scanner.next();
-                new Contact((long) id, name, phoneNumber, email, companyName);
+                new Contact(name, phoneNumber, email, companyName);
             }
         } catch (FileNotFoundException exception) {
             printer.printImportErrorInfo(filename);

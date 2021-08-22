@@ -1,10 +1,8 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
 
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Account;
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Contact;
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Lead;
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Opportunity;
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Contact;
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Lead;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;

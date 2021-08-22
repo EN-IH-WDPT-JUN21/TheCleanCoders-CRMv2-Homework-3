@@ -1,7 +1,6 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
 
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 
 public class Printer {

@@ -1,5 +1,6 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.classes;
+package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,16 +12,19 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "sales_rep")
+@AllArgsConstructor
+@Table(name = "sales_rep_list")
 public class SalesRep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "sales_rep_name")
     private String name;
     //SalesRep should have OneToMany relations with Leads and Opportunities
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesRep")
+    @OneToMany(mappedBy = "salesRep")
     private Set<Lead> salesRepLeads;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesRep")
+    @OneToMany(mappedBy = "salesRep")
     private Set<Opportunity> salesRepOpportunities;
 
     public SalesRep(String name) {
