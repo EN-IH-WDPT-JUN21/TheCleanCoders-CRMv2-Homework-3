@@ -14,23 +14,25 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "opportunities_table")
 public class Opportunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     @Enumerated(EnumType.STRING)
     private Product product;
     private int quantity;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "decision_maker")
     private Contact decisionMaker;
     @Enumerated(EnumType.STRING)
+    @Column(name = "opportunity_status") //"status" is an SQL keyword
     private Status status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sales_rep")
     private SalesRep salesRep;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account")
     private Account account;
 

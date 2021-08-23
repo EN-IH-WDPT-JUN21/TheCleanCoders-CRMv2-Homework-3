@@ -2,16 +2,16 @@ package com.ironhack.TheCleanCodersCRMv2homework3;
 
 import com.ironhack.TheCleanCodersCRMv2homework3.dao.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
+import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
+
 
 @SpringBootApplication
 public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunner {
@@ -42,11 +42,11 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 	public void run(String... args) {
 
 		salesRepList = salesRepRepository.saveAll(List.of(
-				new SalesRep("Rick Sanchez"),
-				new SalesRep("Homer Simpson"),
-				new SalesRep("Peter Griffin"),
-				new SalesRep("Stan Smith"),
-				new SalesRep("Mark Naird")
+				new SalesRep("Sales Rep 1"),
+				new SalesRep("Sales Rep 2"),
+				new SalesRep("Sales Rep 3"),
+				new SalesRep("Sales Rep 4"),
+				new SalesRep("Sales Rep 5")
 		));
 		SalesRep salesRep1 = new SalesRep("Andre");
 		salesRepRepository.save(salesRep1);
@@ -83,8 +83,30 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 				new Opportunity(Product.BOX, 7, contactList.get(1), salesRepList.get(2))
 		));
 
+		opportunityRepository.setOpportunityStatusById(1L, Status.CLOSED_WON);
 
-		for (String[] a : salesRepRepository.countLeadsBySalesRep()) {
+		System.out.println("\nLeads by SalesRep");
+		for (String[] a : salesRepRepository.reportLeadsBySalesRep()) {
+			System.out.println(Arrays.toString(a));
+		}
+
+		System.out.println("\nOpportunities by SalesRep");
+		for (String[] a : salesRepRepository.reportOpportunitiesBySalesRep()) {
+			System.out.println(Arrays.toString(a));
+		}
+
+		System.out.println("\nClosed-Lost by SalesRep");
+		for (String[] a : salesRepRepository.reportClosedLostOpportunitiesBySalesRep()) {
+			System.out.println(Arrays.toString(a));
+		}
+
+		System.out.println("\nClosed-Won by SalesRep");
+		for (String[] a : salesRepRepository.reportClosedWonOpportunitiesBySalesRep()) {
+			System.out.println(Arrays.toString(a));
+		}
+
+		System.out.println("\nOpen by SalesRep");
+		for (String[] a : salesRepRepository.reportOpenOpportunitiesBySalesRep()) {
 			System.out.println(Arrays.toString(a));
 		}
 

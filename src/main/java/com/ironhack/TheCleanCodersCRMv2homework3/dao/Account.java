@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "account_list")
+@Table(name = "account_table")
 public class Account {
 
     @Id

@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "leads") // "lead" is a keyword of SQL, it cannot be used as table name
+@Table(name = "leads_table") // "lead" is a keyword of SQL, it cannot be used as table name
 public class Lead {
 
     @Id
