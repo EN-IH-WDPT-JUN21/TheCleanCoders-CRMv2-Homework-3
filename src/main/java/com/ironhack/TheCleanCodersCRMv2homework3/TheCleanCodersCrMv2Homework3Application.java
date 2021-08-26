@@ -110,6 +110,10 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 			System.out.println(Arrays.toString(a));
 		}
 
+		System.out.println("\nOpportunity by product");
+		for (String[] a : opportunityRepository.reportOpportunityByProduct()) {
+			System.out.println(Arrays.toString(a));
+		}
 
 
 	}
