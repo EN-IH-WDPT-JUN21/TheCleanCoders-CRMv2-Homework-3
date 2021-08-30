@@ -1,7 +1,6 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
-
-import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,26 +9,24 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "contacts_table")
-public class Contact {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String name;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    private String email;
-    @Column(name = "company_name")
-    private String companyName;
-    @OneToOne(mappedBy = "decisionMaker")
+@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "contacts")
+public class Contact extends Item {
+
+    @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)
     private Opportunity opportunity;
+
     @ManyToOne
     @JoinColumn(name = "account")
     private Account account;
 
+    // Constructor
+
+    // Constructor called when a lead is converted
     public Contact(Lead lead) {
         setName(lead.getName());
         setPhoneNumber(lead.getPhoneNumber());
@@ -37,31 +34,10 @@ public class Contact {
         setCompanyName(lead.getCompanyName());
     }
 
+    // New Contact constructor
     public Contact(String name, String phoneNumber, String email, String companyName) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.companyName = companyName;
+        super(name, phoneNumber, email, companyName);
     }
 
-// Setters and getters
-
-
-    @Override
-    public String toString() {
-        return "=== Contact " + getId() + " ===" + '\n' +
-                "· name : " + name + '\n' +
-                "· phone number : " + phoneNumber + '\n' +
-                "· email : " + email + '\n' +
-                "· company name : " + companyName + '\n';
-    }
-
-    public String toStringInOppClass() {
-        return Style.DARK_GRAY + "CONTACT " + getId() + '\n' + Style.DEFAULT +
-                "   - name : " + name + '\n' +
-                "   - phone number : " + phoneNumber + '\n' +
-                "   - email : " + email + '\n' +
-                "   - company name : " + companyName;
-    }
 }
 

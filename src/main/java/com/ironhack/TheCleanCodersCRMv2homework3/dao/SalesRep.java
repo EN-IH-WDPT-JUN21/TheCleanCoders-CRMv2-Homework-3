@@ -9,21 +9,25 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sales_rep_table")
+@Getter
+@Setter
+
+@Table(name = "sales_rep")
 public class SalesRep {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
+
     @Column(name = "sales_rep_name")
     private String name;
+
     //SalesRep should have OneToMany relations with Leads and Opportunities
     @OneToMany(mappedBy = "salesRep")
     private Set<Lead> salesRepLeads;
+
     @OneToMany(mappedBy = "salesRep")
     private Set<Opportunity> salesRepOpportunities;
 

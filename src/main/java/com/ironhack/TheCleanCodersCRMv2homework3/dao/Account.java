@@ -1,8 +1,7 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
-
-
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,34 +11,44 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "account_table")
+
+@Table(name = "accounts")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String companyName;
-    @Enumerated(EnumType.STRING)
-    private Industry industry;
-    private int employeeCount;
-    private String city;
-    private String country;
-    @OneToMany(mappedBy = "account")
-    @Column(name = "opportunity")
-    private Set<Opportunity> opportunityList;
-    @OneToMany(mappedBy = "account") //Not sure about this one, but it's in the requirements
-    private Set<Contact> contactList;
+    private Long id;
 
+    @Column(name = "company_name")
+    private String companyName;
+
+    @Enumerated(value = EnumType.STRING)
+    private Industry industry;
+
+    @Column(name = "employees")
+    private int employeeCount;
+
+    private String city;
+
+    private String country;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @Column(name = "opportunity_list")
+    private Set<Opportunity> opportunityList;
+
+    @OneToMany(mappedBy = "account")
+    @Column(name = "contact_list")
+    private Set<Contact> contactList;
 
     // Constructor
 
-    public Account(Contact contact, Opportunity opportunity, Industry industry, int employeeCount, String city,
-                   String country) {
+    public Account(Contact contact, Opportunity opportunity, Industry industry, int employeeCount, String city, String country) {
         // The CRM takes the Company name from Lead Object
         setCompanyName(contact.getCompanyName());
-        // The CRM prompts user for the industry, number of employees, city, and country of Mike’s company.
+        // The CRM prompts user for the industry, number of employees, city, and country of the company.
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
@@ -49,8 +58,7 @@ public class Account {
         addOpportunityToList(opportunity);
     }
 
-    public Account(int id, Contact contact, Opportunity opportunity, String companyName, Industry industry,
-                   int employeeCount, String city, String country) {
+    public Account(Contact contact, Opportunity opportunity, String companyName, Industry industry, int employeeCount, String city, String country) {
         setCompanyName(companyName);
         setIndustry(industry);
         setEmployeeCount(employeeCount);
