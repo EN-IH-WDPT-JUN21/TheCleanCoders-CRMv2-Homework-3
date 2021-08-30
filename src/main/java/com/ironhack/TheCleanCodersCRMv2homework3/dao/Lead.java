@@ -1,4 +1,4 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.classes;
+package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "leads") // "lead" is a keyword of SQL, it cannot be used as table name
+@Table(name = "leads_table") // "lead" is a keyword of SQL, it cannot be used as table name
 public class Lead {
 
     @Id
@@ -25,7 +25,7 @@ public class Lead {
     private String email;
     @Column(name = "company_name")
     private String companyName;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sales_rep")
     private SalesRep salesRep;
 

@@ -1,4 +1,4 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.classes;
+package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
 
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
@@ -14,23 +14,25 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "opportunities_table")
 public class Opportunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    @Enumerated
+    private Long id;
+    @Enumerated(EnumType.STRING)
     private Product product;
     private int quantity;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "decision_maker")
     private Contact decisionMaker;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
+    @Column(name = "opportunity_status") //"status" is an SQL keyword
     private Status status;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sales_rep")
     private SalesRep salesRep;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account")
     private Account account;
 

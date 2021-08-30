@@ -2,10 +2,6 @@ package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
 
 
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Account;
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Contact;
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Lead;
-import com.ironhack.TheCleanCodersCRMv2homework3.classes.Opportunity;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;

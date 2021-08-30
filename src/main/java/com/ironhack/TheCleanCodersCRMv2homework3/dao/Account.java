@@ -1,4 +1,4 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.classes;
+package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
 
 
@@ -14,20 +14,25 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "account_table")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String companyName;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Industry industry;
     private int employeeCount;
     private String city;
     private String country;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    @Column(name = "opportunity_list")
+    @OneToMany(mappedBy = "account")
+    @Column(name = "opportunity")
     private Set<Opportunity> opportunityList;
+    @OneToMany(mappedBy = "account") //Not sure about this one, but it's in the requirements
+    private Set<Contact> contactList;
+
+
     // Constructor
 
     public Account(Contact contact, Opportunity opportunity, Industry industry, int employeeCount, String city,
