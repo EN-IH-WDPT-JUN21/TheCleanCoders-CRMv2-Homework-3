@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 
-@Table(name = "accounts")
+@Table(name = "accounts_table")
 public class Account {
 
     @Id

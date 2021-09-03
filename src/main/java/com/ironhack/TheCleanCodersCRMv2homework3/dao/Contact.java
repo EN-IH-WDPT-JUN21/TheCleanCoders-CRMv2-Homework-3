@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -13,8 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 
-@PrimaryKeyJoinColumn(name = "id")
-@Table(name = "contacts")
+@Table(name = "contacts_table")
 public class Contact extends Item {
 
     @OneToOne(mappedBy = "decisionMaker", cascade = CascadeType.ALL)

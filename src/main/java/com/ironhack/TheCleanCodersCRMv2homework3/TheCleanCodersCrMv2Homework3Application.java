@@ -41,7 +41,7 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 	@Override
 	public void run(String... args) {
 
-		salesRepList = salesRepRepository.saveAll(List.of(
+/*		salesRepList = salesRepRepository.saveAll(List.of(
 				new SalesRep("Sales Rep 1"),
 				new SalesRep("Sales Rep 2"),
 				new SalesRep("Sales Rep 3"),
@@ -49,9 +49,9 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 				new SalesRep("Sales Rep 5")
 		));
 		SalesRep salesRep1 = new SalesRep("Andre");
-		salesRepRepository.save(salesRep1);
+		salesRepRepository.save(salesRep1);*/
 
-		leadList = leadRepository.saveAll(List.of(
+/*		leadList = leadRepository.saveAll(List.of(
 				new Lead("Harry Potter", "0044123456", "harryp@hogwarts.wiz",
 						"Gryffindor Ltd", salesRep1),
 				new Lead("Raistlin", "1234564879", "wizkid@majere.org",
@@ -62,9 +62,9 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 						"cleanDevelopers", salesRepList.get(0)),
 				new Lead("Miguel", "5643218563", "miguel@nevermind.com",
 						"Os fortesnight", salesRepList.get(3))
-		));
+		));*/
 
-		contactList = contactRepository.saveAll(List.of(
+/*		contactList = contactRepository.saveAll(List.of(
 				new Contact("Mara", "135791113", "mara@ironhack.es",
 						"theCleanCoders Inc"),
 				new Contact("Katarzyna", "2468101214", "catKat@ironhack.pl",
@@ -73,9 +73,9 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 						"theCleanCoders Ltd"),
 				new Contact("Vitaliano", "2112345678", "vitaliano@ironhack.pt",
 						"theCleanCoders Lda")
-		));
+		));*/
 
-		opportunityList = opportunityRepository.saveAll(List.of(
+/*		opportunityList = opportunityRepository.saveAll(List.of(
 				new Opportunity(Product.BOX, 8, contactList.get(0), salesRep1),
 				new Opportunity(Product.FLATBED, 7, contactList.get(0), salesRepList.get(1)),
 				new Opportunity(Product.HYBRID, 1, contactList.get(1), salesRepList.get(0)),
@@ -83,7 +83,7 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 				new Opportunity(Product.BOX, 7, contactList.get(1), salesRepList.get(2))
 		));
 
-		opportunityRepository.setOpportunityStatusById(1L, Status.CLOSED_WON);
+		opportunityRepository.setOpportunityStatusById(1L, Status.CLOSED_WON);*/
 
 		System.out.println("\nLeads by SalesRep");
 		for (String[] a : salesRepRepository.reportLeadsBySalesRep()) {

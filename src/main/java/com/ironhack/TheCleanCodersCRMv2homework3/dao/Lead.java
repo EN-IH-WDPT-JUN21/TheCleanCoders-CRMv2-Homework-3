@@ -13,8 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 
-@PrimaryKeyJoinColumn(name = "id")
-@Table(name = "leads")
+@Table(name = "leads_table")
 public class Lead extends Item{
 
     @ManyToOne(fetch = FetchType.EAGER)
