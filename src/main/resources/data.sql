@@ -1,57 +1,57 @@
---DROP TABLE IF EXISTS opportunities_table;
---DROP TABLE IF EXISTS leads_table;
---DROP TABLE IF EXISTS sales_rep_table;
---DROP TABLE IF EXISTS contacts_table;
---DROP TABLE IF EXISTS accounts_table;
---
---
---CREATE TABLE accounts_table (
---                              id INT AUTO_INCREMENT PRIMARY KEY,
---                              company_name VARCHAR(250) NOT NULL,
---                              industry VARCHAR(250) NOT NULL,
---                              employees INT NOT NULL,
---                              city VARCHAR(250) NOT NULL,
---                              country VARCHAR(250) NOT NULL
---);
---
---CREATE TABLE contacts_table (
---                              id INT AUTO_INCREMENT PRIMARY KEY,
---                              name VARCHAR(250) NOT NULL,
---                              phone_number VARCHAR(250) NOT NULL,
---                              email VARCHAR(250) NOT NULL,
---                              company_name VARCHAR(250) NOT NULL
-----                              opportunity INT NOT NULL,
-----                              FOREIGN KEY (opportunity) REFERENCES opportunities_table(id)
---
---);
---
---CREATE TABLE sales_rep_table (
---                              id INT AUTO_INCREMENT PRIMARY KEY,
---                              sales_rep_name VARCHAR(250) NOT NULL
---);
---
---CREATE TABLE leads_table (
---                              id INT AUTO_INCREMENT PRIMARY KEY,
---                              name VARCHAR(250) NOT NULL,
---                              phone_number VARCHAR(250) NOT NULL,
---                              email VARCHAR(250) NOT NULL,
---                              company_name VARCHAR(250) NOT NULL,
---                              sales_rep INT NOT NULL,
---                              FOREIGN KEY (sales_rep) REFERENCES sales_rep_table(id)
---);
---
---CREATE TABLE opportunities_table (
---                              id INT AUTO_INCREMENT PRIMARY KEY,
---                              product VARCHAR(250) NOT NULL,
---                              quantity INT NOT NULL,
---                              decision_maker INT NOT NULL,
---                              opportunity_status VARCHAR(250) NOT NULL,
---                              sales_rep INT NOT NULL,
---                              account INT NOT NULL,
---                              FOREIGN KEY (decision_maker) REFERENCES contacts_table(id),
---                              FOREIGN KEY (sales_rep) REFERENCES sales_rep_table(id),
---                              FOREIGN KEY (account) REFERENCES accounts_table(id)
---);
+DROP TABLE IF EXISTS opportunities_table;
+DROP TABLE IF EXISTS leads_table;
+DROP TABLE IF EXISTS sales_rep_table;
+DROP TABLE IF EXISTS contacts_table;
+DROP TABLE IF EXISTS accounts_table;
+
+
+CREATE TABLE accounts_table (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              company_name VARCHAR(250) NOT NULL,
+                              industry VARCHAR(250) NOT NULL,
+                              employees INT NOT NULL,
+                              city VARCHAR(250) NOT NULL,
+                              country VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE contacts_table (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              name VARCHAR(250) NOT NULL,
+                              phone_number VARCHAR(250) NOT NULL,
+                              email VARCHAR(250) NOT NULL,
+                              company_name VARCHAR(250) NOT NULL
+--                              opportunity INT NOT NULL,
+--                              FOREIGN KEY (opportunity) REFERENCES opportunities_table(id)
+
+);
+
+CREATE TABLE sales_rep_table (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              sales_rep_name VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE leads_table (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              name VARCHAR(250) NOT NULL,
+                              phone_number VARCHAR(250) NOT NULL,
+                              email VARCHAR(250) NOT NULL,
+                              company_name VARCHAR(250) NOT NULL,
+                              sales_rep INT NOT NULL,
+                              FOREIGN KEY (sales_rep) REFERENCES sales_rep_table(id)
+);
+
+CREATE TABLE opportunities_table (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              product VARCHAR(250) NOT NULL,
+                              quantity INT NOT NULL,
+                              decision_maker INT NOT NULL,
+                              opportunity_status VARCHAR(250) NOT NULL,
+                              sales_rep INT NOT NULL,
+                              account INT NOT NULL,
+                              FOREIGN KEY (decision_maker) REFERENCES contacts_table(id),
+                              FOREIGN KEY (sales_rep) REFERENCES sales_rep_table(id),
+                              FOREIGN KEY (account) REFERENCES accounts_table(id)
+);
 
 INSERT INTO accounts_table (id, company_name, industry, employees, city, country) VALUES
 (default, 'FirstSight', 'MANUFACTURING', 100, 'Basel', 'Switzerland'),
