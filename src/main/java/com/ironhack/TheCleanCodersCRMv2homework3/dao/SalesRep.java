@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 
-@Table(name = "sales_rep")
+@Table(name = "sales_rep_table")
 public class SalesRep {
 
     @Id

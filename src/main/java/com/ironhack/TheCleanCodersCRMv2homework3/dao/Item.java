@@ -11,13 +11,12 @@ import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public abstract class Item {
 
     @Id

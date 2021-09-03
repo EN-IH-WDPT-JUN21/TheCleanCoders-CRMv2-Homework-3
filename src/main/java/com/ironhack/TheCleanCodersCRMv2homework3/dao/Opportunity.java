@@ -16,7 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 
-@Table(name = "opportunities")
+@Table(name = "opportunities_table")
 public class Opportunity {
 
     @Id
