@@ -1,24 +1,47 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-
-
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
 import com.ironhack.TheCleanCodersCRMv2homework3.io.FileManager;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
 import java.util.Objects;
 
+@Component
 public class Menu {
+
+    final AccountRepository accountRepository;
+    final SalesRepRepository salesRepRepository;
+    final ContactRepository contactRepository;
+    final LeadRepository leadRepository;
+    final OpportunityRepository opportunityRepository;
+
+    @Autowired
+    Data data;
+    @Autowired
+    Creator creator;
+
+    @Autowired
+    public Menu(AccountRepository accountRepository, SalesRepRepository salesRepRepository, ContactRepository contactRepository, LeadRepository leadRepository, OpportunityRepository opportunityRepository) {
+        this.accountRepository = accountRepository;
+        this.salesRepRepository = salesRepRepository;
+        this.contactRepository = contactRepository;
+        this.leadRepository = leadRepository;
+        this.opportunityRepository = opportunityRepository;
+    }
+
     private final Printer printer = new Printer();
     private final Input input = new Input(printer);
-    private final Creator creator = new Creator(input, printer);
     private final FileManager fileManager = new FileManager(printer);
 
-    public Menu() {
-        fileManager.importData();
-    }
 
     public void controlLoop() throws InterruptedException{
         Command command;
@@ -92,6 +115,11 @@ public class Menu {
             case CLOSE_WON:
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.CLOSED_WON, id);
+                break;
+            case POPULATE:
+                data = new Data(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository);
+                creator = new Creator(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository, input, printer);
+                data.populateRepos();
                 break;
             case OPEN:
                 id = Integer.parseInt(inputList[1]);
@@ -175,5 +203,9 @@ public class Menu {
 //        Opportunity opportunity = (Opportunity) Opportunity.getById(id, Opportunity.getAllOpportunities());
 //        opportunity.setStatus(status);
 
+    }
+
+    public void back() {
+        return;
     }
 }

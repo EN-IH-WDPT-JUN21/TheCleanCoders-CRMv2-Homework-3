@@ -8,6 +8,7 @@ public enum Command {
     CLOSE_LOST("CLOSE-LOST"),
     CLOSE_WON("CLOSE-WON"),
     OPEN("OPEN"),
+    POPULATE("POPULATE"),
     EXIT("EXIT"),
     HELP("HELP"),
     SAVE("SAVE");

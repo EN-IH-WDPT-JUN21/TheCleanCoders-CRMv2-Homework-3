@@ -39,7 +39,7 @@ public class Account {
     @Column(name = "opportunity_list")
     private Set<Opportunity> opportunityList;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     @Column(name = "contact_list")
     private Set<Contact> contactList;
 
@@ -66,6 +66,15 @@ public class Account {
         setCountry(country);
         addContactToList(contact);
         addOpportunityToList(opportunity);
+    }
+
+    // Constructor for a new Account
+    public Account(String companyName, Industry industry, int employeeCount, String city, String country) {
+        setCompanyName(companyName);
+        setIndustry(industry);
+        setEmployeeCount(employeeCount);
+        setCity(city);
+        setCountry(country);
     }
 
     // Methods

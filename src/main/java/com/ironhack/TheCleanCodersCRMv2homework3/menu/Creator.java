@@ -1,17 +1,38 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-
 import com.ironhack.TheCleanCodersCRMv2homework3.dao.Contact;
 import com.ironhack.TheCleanCodersCRMv2homework3.dao.Lead;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Creator {
+
+
+    final AccountRepository accountRepository;
+    final SalesRepRepository salesRepRepository;
+    final ContactRepository contactRepository;
+    final LeadRepository leadRepository;
+    final OpportunityRepository opportunityRepository;
+
+    @Autowired
+    Data data;
+
     private Input input;
     private Printer printer;
 
-    public Creator(Input input, Printer printer) {
+    @Autowired
+    public Creator(AccountRepository accountRepository, SalesRepRepository salesRepRepository, ContactRepository contactRepository, LeadRepository leadRepository, OpportunityRepository opportunityRepository, Input input, Printer printer) {
+        this.accountRepository = accountRepository;
+        this.salesRepRepository = salesRepRepository;
+        this.contactRepository = contactRepository;
+        this.leadRepository = leadRepository;
+        this.opportunityRepository = opportunityRepository;
         this.input = input;
         this.printer = printer;
     }
@@ -134,7 +155,7 @@ public class Creator {
         // It will request LEAD id
         System.out.println(Style.OCHER + "Creating a new CONTACT." + Style.DEFAULT);
 
-        System.out.println("\nPlease insert LEAD Id to be used:");
+        System.out.println("\nPlease insert LEAD id to be used:");
         int idLead = input.getIntegerHigherThanZero();
 //        Lead lead = (Lead) Lead.getById(idLead, Lead.allLeads);
 //        Contact contact = new Contact(lead);
@@ -145,9 +166,19 @@ public class Creator {
     }
 
     public void createLead() {
-        // Asks user all the necessary info
-        System.out.println(Style.OCHER + "Creating a new LEAD." + Style.DEFAULT);
-        System.out.println("Please input the following:");
+        // First it is checked if there is any Sales Rep as we need to associate one to our lead.
+        try{
+            if(!salesRepRepository.findAll().isEmpty()) {
+                System.out.println(Style.OCHER + "Creating a new LEAD." + Style.DEFAULT);
+                System.out.println("Please input the following:");
+            }
+        } catch(NullPointerException e){
+            System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Lead cannot be created." +  Style.DEFAULT);
+            System.out.println("\nPlease, select other option.");
+            return;
+        }
+
+        // Then, the user is asked for all the necessary info
 
         String name;
         boolean errorName = false;
@@ -212,11 +243,30 @@ public class Creator {
 
         } while (!errorCompany);
 
-//        Lead lead = new Lead(name, phoneNumber, email, companyName, salesRep);
+        Long idNumber;
+        while(true){
+
+            System.out.println("\nSales Rep id:");
+            int idSalesRep = input.getIntegerHigherThanZero();
+            idNumber = Long.valueOf(idSalesRep);
+
+            try{
+                if(salesRepRepository.findById(idNumber).isPresent()) {
+                    break;
+                }
+            } catch (NullPointerException e){
+                System.out.println("The id entered does not correspond to any sales rep.");
+            }
+        };
+
+
+        Lead lead = new Lead(name, phoneNumber, email, companyName, salesRepRepository.findById(idNumber).get());
+        leadRepository.save(lead);
+
 
         // Print a LEAD creation message, using Lead.toString method on the last element of leadsList, newly created
         System.out.println("\nA new LEAD was created with the following info:");
-//        System.out.println(lead);
+        System.out.println(lead);
 
     }
 

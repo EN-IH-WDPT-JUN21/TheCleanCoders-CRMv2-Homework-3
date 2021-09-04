@@ -5,9 +5,13 @@ import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
+import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class Input {
     private Scanner scanner = new Scanner(System.in);
     private Printer printer;
@@ -32,7 +36,7 @@ public class Input {
     public int getIntegerHigherThanZero() {
         int intValue = -1;
         do {
-            System.out.println("Please input Integer higher than 0");
+            System.out.println(Style.LIGHT_GRAY + "Please input Integer higher than 0" + Style.DEFAULT);
             String input = scanner.next();
             try {
                 intValue = Integer.parseInt(input);
@@ -49,7 +53,7 @@ public class Input {
         scanner.close();
     }
 
-    // method to convert case insensitive string to Command Enum
+    // Method to convert case insensitive string to Command Enum
     public Command getCommandFromString(String string) {
         string = string.toUpperCase();
         for (Command command : Command.values()) {
@@ -60,7 +64,7 @@ public class Input {
         return null;
     }
 
-    // method to convert case insensitive string (in singular form) to ObjectTypes Enum
+    // Method to convert case insensitive string (in singular form) to ObjectTypes Enum
     public ObjectType getObjectTypeFromStringSingular(String string) {
         string = string.toUpperCase();
         for (ObjectType objectType : ObjectType.values()) {
@@ -71,7 +75,7 @@ public class Input {
         return null;
     }
 
-    // method to convert case insensitive string (in plural form) to ObjectTypes Enum
+    // Method to convert case insensitive string (in plural form) to ObjectTypes Enum
     public ObjectType getObjectTypeFromStringPlural(String string) {
         string = string.toUpperCase();
         for (ObjectType objectType : ObjectType.values()) {

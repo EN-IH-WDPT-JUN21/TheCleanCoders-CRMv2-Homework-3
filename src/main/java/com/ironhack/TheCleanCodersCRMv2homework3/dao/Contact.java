@@ -1,5 +1,6 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
+import com.ironhack.TheCleanCodersCRMv2homework3.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,13 @@ public class Contact extends Item {
 
     // New Contact constructor
     public Contact(String name, String phoneNumber, String email, String companyName) {
-        super(name, phoneNumber, email, companyName);
+        super(name, email, companyName, phoneNumber);
+    }
+
+    // New Contact constructor including an associated Account
+    public Contact(String name, String phoneNumber, String email, String companyName, Account account) {
+        super(name, email, companyName, phoneNumber);
+        setAccount(account);
     }
 
 }

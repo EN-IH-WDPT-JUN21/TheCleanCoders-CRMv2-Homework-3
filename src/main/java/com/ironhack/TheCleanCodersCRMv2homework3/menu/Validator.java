@@ -23,7 +23,7 @@ public class Validator {
     }
 
     public static boolean isStringValid(String string) {
-        if(string.length() > 1 && string.length() < 35 && string.replaceAll("\\s+","").matches("[áéíóúàèìòùäëïöüãẽõçłña-zÁÉÍÓÚÀÈÌÒÙÄËÏÖÜÃẼÕÇŁÑA-Z0-9]+")){
+        if(string.length() > 1 && string.length() < 35 && string.replaceAll("\\s+","").matches("[.áéíóúàèìòùäëïöüãẽõçłña-zÁÉÍÓÚÀÈÌÒÙÄËÏÖÜÃẼÕÇŁÑA-Z0-9]+")){
             return true;
         } else {
             throw new IllegalArgumentException("Not a valid input.");

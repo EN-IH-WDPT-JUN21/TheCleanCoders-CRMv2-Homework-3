@@ -46,14 +46,14 @@ public class Opportunity {
 
     //Constructor
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep) {
+    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep, Account account) {
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
         setStatus(Status.OPEN);
         setSalesRep(salesRep);
+        setAccount(account);
     }
-
 
     @Override
     public boolean equals(Object o) {
