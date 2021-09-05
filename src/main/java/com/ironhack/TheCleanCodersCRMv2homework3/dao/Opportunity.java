@@ -55,6 +55,13 @@ public class Opportunity {
         setAccount(account);
     }
 
+    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep) {
+        setProduct(product);
+        setQuantity(quantity);
+        setDecisionMaker(decisionMaker);
+        setStatus(Status.OPEN);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

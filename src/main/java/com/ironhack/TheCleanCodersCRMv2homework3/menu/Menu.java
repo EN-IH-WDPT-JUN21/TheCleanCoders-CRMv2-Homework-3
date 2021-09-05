@@ -1,5 +1,6 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Lead;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
@@ -37,10 +38,10 @@ public class Menu {
 
     private final Printer printer = new Printer();
     private final Input input = new Input(printer);
-    private final FileManager fileManager = new FileManager(printer);
+//    private final FileManager fileManager = new FileManager(printer);
 
 
-    public void controlLoop() throws InterruptedException{
+    public void controlLoop() throws InterruptedException {
         Command command;
         do {
             String[] inputList = splitInput(input.getString());
@@ -69,7 +70,7 @@ public class Menu {
         return string.trim().split(" ");
     }
 
-    public void interpretInput(String[] inputList) {
+    public void interpretInput(String[] inputList) throws InterruptedException {
         creator = new Creator(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository, input, printer);
         Command command = input.getCommandFromString(inputList[0]);
         ObjectType objectType;
@@ -182,19 +183,27 @@ public class Menu {
         }
     }
 
-    public void convert(int id) {
-        // When a Lead is converted, Contact, Opportunity and Account are automatically created
-        // and the Lead must be deleted.
-        System.out.println("\nConverting LEAD nº " + id + " to CONTACT, OPPORTUNITY and ACCOUNT\n");
-//        Lead lead = (Lead) Lead.getById(id, Lead.getAllLeads());
-//        creator.createContact(lead);
-//        creator.createOpportunityByLeadConversion();
-//        creator.createAccount(lead);
-//        Lead.removeItem(lead);
+    public void convert(int id) throws InterruptedException {
+        // When a Lead is converted a Contact, Opportunity and Account are automatically created and the Lead must be deleted.
+        System.out.println(Style.OCHER + "\nConverting LEAD nº " + id + " to CONTACT, ACCOUNT and OPPORTUNITY\n" + Style.DEFAULT);
+        Lead lead = leadRepository.findById(Long.valueOf(id)).get();
+        Thread.sleep(500);
+        creator.createAccount(lead);
+        Thread.sleep(1500);
+        System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
+        Thread.sleep(2500);
+        creator.createContact(lead);
+        Thread.sleep(2000);
+        creator.createOpportunityByLeadConversion(lead);
+        Thread.sleep(2000);
+        leadRepository.deleteById(Long.valueOf(id));
+        System.out.println(Style.OCHER + "\n\n\n..." + Style.DEFAULT);
+        Thread.sleep(1500);
+        System.out.println(Style.OCHER + "\n\n\nLead has been successfully converted and deleted.\n\n\n" + Style.DEFAULT);
     }
 
     public void changeStatus(Status status, int id) {
-        System.out.println("Changes OPPORTUNITY with an id of " + id + " status to " + status + ".");
+        System.out.println("Changes OPPORTUNITY with an id of " + id + " status to " + status +".");
 //        Opportunity opportunity = (Opportunity) Opportunity.getById(id, Opportunity.getAllOpportunities());
 //        opportunity.setStatus(status);
 

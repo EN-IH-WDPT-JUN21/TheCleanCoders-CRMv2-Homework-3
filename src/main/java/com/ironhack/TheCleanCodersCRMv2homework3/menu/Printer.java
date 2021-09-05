@@ -44,8 +44,6 @@ public class Printer {
         System.out.println("There was an error while importing data from file " + filename);
     }   
 
-
-      
     public void welcomeMessage(){
         print("\n\n============================================================");
         print("                       Welcome to\n");
@@ -64,7 +62,6 @@ public class Printer {
         print("\n\nTo start using our cleanCRM, type the commands below. Type \"HELP\" for instructions");
       
     }
-      
       
     public void helpPage(){
         System.out.println("=================================================");

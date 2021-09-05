@@ -6,16 +6,9 @@ import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
-import org.hibernate.HibernateError;
-import org.hibernate.HibernateException;
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateJdbcException;
-import org.springframework.orm.hibernate5.HibernateObjectRetrievalFailureException;
-import org.springframework.orm.hibernate5.HibernateQueryException;
 import org.springframework.stereotype.Component;
 
-import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 @Component
@@ -30,7 +23,6 @@ public class Creator {
     @Autowired
     Data data;
 
-    private Creator creator;
     private Input input;
     private Printer printer;
 
@@ -80,10 +72,8 @@ public class Creator {
         System.out.println(Style.OCHER + "\nCreating a new ACCOUNT." + Style.DEFAULT);
         System.out.println("Please input the following:");
 
-
-        System.out.println("\nIndustry of the related Company:");
+        System.out.println("\nChoose type of Industry:");
         Industry industry = input.chooseIndustry();
-
 
         System.out.println("\nNumber of employees of the Company:");
         int employeeCount = input.getIntegerHigherThanZero();
@@ -126,6 +116,61 @@ public class Creator {
 
         // Print an ACCOUNT creation message
         System.out.println(Style.OCHER + "\nNew ACCOUNT created:" + Style.DEFAULT);
+        System.out.println(account);
+
+    }
+
+    // Method that creates an ACCOUNT when LEAD is converted
+    public void createAccount(Lead lead) {
+        // Asks user all the necessary info and then calls constructor
+        System.out.println(Style.OCHER + "\nAdditional information required for the ACCOUNT." + Style.DEFAULT);
+        System.out.println("\nPlease input the following:");
+
+        System.out.println("\nChoose type of Industry:");
+        Industry industry = input.chooseIndustry();
+
+        System.out.println("\nNumber of employees of the Company");
+        int employeeCount = input.getIntegerHigherThanZero();
+
+
+        String city;
+        boolean errorCity = false;
+        do {
+
+            System.out.println("\nCity where the Company is based:");
+            city = input.getString();
+
+            try {
+                errorCity =Validator.isStringValid(city);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Input is whether empty or too long, or it may contain not valid characters.");
+            }
+
+        } while (!errorCity);
+
+
+        String country;
+        boolean errorCountry = false;
+        do {
+
+            System.out.println("\nCountry where the Company is based:");
+            country = input.getString();
+
+            try {
+                errorCountry = Validator.isStringValid(country);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Input is whether empty or too long, or it may contain not valid characters.");
+            }
+
+        } while (!errorCountry);
+
+        Account account = new Account(industry, employeeCount, city, country);
+
+        // New ACCOUNT Object saved in database
+        accountRepository.save(account);
+
+        // Print an ACCOUNT creation message
+        System.out.println(Style.OCHER + "\nA new ACCOUNT has been created with the following info:" + Style.DEFAULT);
         System.out.println(account);
 
     }
@@ -235,60 +280,18 @@ public class Creator {
 
     }
 
-    // Method that creates an ACCOUNT when LEAD is converted
-    public void createAccount(Lead lead) {
-        // Asks user all the necessary info and then calls constructor
-        System.out.println("Additional information for the" + Style.OCHER + " ACCOUNT." + Style.DEFAULT + " Please input the following:");
-
-        System.out.println("\nChoose type of Industry:");
-        Industry industry = input.chooseIndustry();
-
-        System.out.println("\nNow input number of employees of the Company");
-        int employeeCount = input.getIntegerHigherThanZero();
-
-
-        String city;
-        boolean errorCity = false;
-        do {
-
-            System.out.println("\nCity where the Company is based:");
-            city = input.getString();
-
-            try {
-                errorCity =Validator.isStringValid(city);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Input is whether empty or too long, or it may contain not valid characters.");
-            }
-
-        } while (!errorCity);
-
-
-        String country;
-        boolean errorCountry = false;
-        do {
-
-            System.out.println("\nCountry where the Company is based:");
-            country = input.getString();
-
-            try {
-                errorCountry = Validator.isStringValid(country);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Input is whether empty or too long, or it may contain not valid characters.");
-            }
-
-        } while (!errorCountry);
-
-//        Account account = new Account((Contact) Contact.allContacts.get(Contact.allContacts.size()-1),
-//                (Opportunity) Opportunity.allOpportunities.get(Opportunity.allOpportunities.size()-1),
-//                industry, employeeCount, city, country);
-        System.out.println("\nNew ACCOUNT created:");
-//        System.out.println(account.toString());
-
-    }
-
     //  Method that creates a CONTACT automatically when LEAD is converted
     public void createContact(Lead lead) {
-        Contact contact = new Contact(lead);
+        // This method is implemented right after the createAccount(Lead lead) method, triggered by the "convert <id number>" command.
+        // This means that the Account associated is the last one saved in the accountRepository.
+        Contact contact = new Contact(lead, accountRepository.findById(Long.valueOf(accountRepository.count())).get());
+
+        // New CONTACT Object saved in database with the LEAD information
+        contactRepository.save(contact);
+
+        // Print a CONTACT creation message
+        System.out.println(Style.OCHER + "\nA new CONTACT has been created with the following info:" + Style.DEFAULT);
+        System.out.println(contact);
     }
 
     // Method used to create a CONTACT independently from a LEAD
@@ -436,23 +439,32 @@ public class Creator {
         System.out.println(opportunity);
     }
 
-    public void createOpportunityByLeadConversion() {
-        System.out.println("Additional information for the" + Style.OCHER + " OPPORTUNITY." + Style.DEFAULT + " Please input the following:");
+    // Method that creates an OPPORTUNITY when LEAD is converted
+    public void createOpportunityByLeadConversion(Lead lead) {
+        System.out.println(Style.OCHER + "\nAdditional information required for the OPPORTUNITY." + Style.DEFAULT);
+        System.out.println("\nPlease input the following:");
+
 
         System.out.println("\nProduct type:");
         Product product = input.chooseProduct();
 
+
         System.out.println("\nQuantity of trucks");
-        int quantity = input.getIntegerHigherThanZero(); // Added this method to Input class.
+        int quantity = input.getIntegerHigherThanZero();
 
-        //This method should be implemented right after the createContact method, and both are triggered by the
-        // "convert <id number>" command. So it will use the last contact it was created in the allContactsList array.
-        //Constructing the Opportunity object, and storing it in the allOpportunitiesList:
-//        Opportunity opportunity = new Opportunity(product, quantity,
-//                (Contact) Contact.allContacts.get(Contact.allContacts.size()-1));
-        System.out.println("\n\nA new Opportunity was created as follows:");
-//        System.out.println(opportunity);
+
+        // This method is implemented right after the createContact(Lead lead) method and the createAccount(Lead lead) method,
+        // triggered by the "convert <id number>" command. This means that the Contact associated with this Opportunity is the
+        // last one saved in the contactRepository and the Account associated is the last one saved in the accountRepository.
+        Opportunity opportunity = new Opportunity(product, quantity, contactRepository.findById(Long.valueOf(contactRepository.count())).get(),
+                lead.getSalesRep(), accountRepository.findById(Long.valueOf(accountRepository.count())).get());
+
+        // New OPPORTUNITY Object saved in database
+        opportunityRepository.save(opportunity);
+
+        // Print an OPPORTUNITY creation message
+        System.out.println(Style.OCHER + "\nA new OPPORTUNITY has been created with the following info:" + Style.DEFAULT);
+        System.out.println(opportunity);
     }
-
 
 }

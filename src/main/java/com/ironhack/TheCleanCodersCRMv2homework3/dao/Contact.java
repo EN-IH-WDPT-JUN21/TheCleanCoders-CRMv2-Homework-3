@@ -28,25 +28,13 @@ public class Contact extends Item {
 
     // Constructor
 
-    // Constructor called when a lead is converted
-    public Contact(Lead lead) {
-        setName(lead.getName());
-        setPhoneNumber(lead.getPhoneNumber());
-        setEmail(lead.getEmail());
-        setCompanyName(lead.getCompanyName());
-    }
-
+    // Constructor called when a LEAD is converted
     public Contact(Lead lead, Account account) {
         setName(lead.getName());
         setPhoneNumber(lead.getPhoneNumber());
         setEmail(lead.getEmail());
         setCompanyName(lead.getCompanyName());
         setAccount(account);
-    }
-
-    // New Contact constructor
-    public Contact(String name, String phoneNumber, String email, String companyName) {
-        super(name, email, companyName, phoneNumber);
     }
 
     // New Contact constructor including an associated Account

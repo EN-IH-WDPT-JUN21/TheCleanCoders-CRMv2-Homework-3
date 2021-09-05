@@ -1,15 +1,12 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 @Component
@@ -50,6 +47,7 @@ public class Input {
         return intValue;
     }
 
+    // Method to call when a yes or no question is encountered
     public String getYesOrNo(){
         String answer = "";
         boolean error = false;
@@ -108,12 +106,12 @@ public class Input {
     }
 
     public Industry chooseIndustry() {
-        System.out.println("\nType of Industry:" +
-                "\n1 - Produce" +
-                "\n2 - E-Commerce" +
-                "\n3 - Manufacturing" +
-                "\n4 - Medical" +
-                "\n5 - Other");
+        System.out.println(
+                "1 - Produce\n" +
+                "2 - E-Commerce\n" +
+                "3 - Manufacturing\n" +
+                "4 - Medical\n" +
+                "5 - Other");
         int input;
         do {
             input = getIntegerHigherThanZero();
@@ -133,7 +131,7 @@ public class Input {
     }
 
     public Product chooseProduct() {
-        System.out.println("\nType of Product:\n" +
+        System.out.println(
                 "1 - HYBRID\n" +
                 "2 - FLATBED\n" +
                 "3 - BOX");
