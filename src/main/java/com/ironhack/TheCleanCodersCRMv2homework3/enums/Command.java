@@ -10,8 +10,7 @@ public enum Command {
     OPEN("OPEN"),
     POPULATE("POPULATE"),
     EXIT("EXIT"),
-    HELP("HELP"),
-    SAVE("SAVE");
+    HELP("HELP");
 
     private String expectedInput;
 

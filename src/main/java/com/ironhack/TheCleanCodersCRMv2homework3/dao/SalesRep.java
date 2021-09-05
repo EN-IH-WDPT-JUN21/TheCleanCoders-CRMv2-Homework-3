@@ -34,4 +34,10 @@ public class SalesRep {
     public SalesRep(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "=== SalesRep " + getId() + " ===" + '\n' +
+                "· name : " + name + '\n';
+    }
 }

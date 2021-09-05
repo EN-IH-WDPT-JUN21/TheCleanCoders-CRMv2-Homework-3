@@ -27,9 +27,14 @@ public class Lead extends Item{
         setSalesRep(salesRep);
     }
 
-
-    public static void removeItem(Lead lead) {
-        //
+    @Override
+    public String toString() {
+        return "=== Lead " + getId() + " ===" + '\n' +
+                "· name : " + getName() + '\n' +
+                "· phone number : " + getPhoneNumber() + '\n' +
+                "· email : " + getEmail() + '\n' +
+                "· company name : " + getCompanyName() + '\n' +
+                "· associate sales rep : " + salesRep.getName() + '\n';
     }
 
 }

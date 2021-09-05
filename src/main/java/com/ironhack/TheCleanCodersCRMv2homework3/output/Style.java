@@ -6,6 +6,7 @@ public class Style {
     public static final String BLACK = "\033[0;30m";        // BLACK
     public static final String RED = "\033[0;31m";          // RED
     public static final String GREEN = "\033[0;32m";        // GREEN
+    public static final String ORANGE = "\033[38;5;208m";   // ORANGE
     public static final String OCHER = "\033[0;33m";        // OCHER
     public static final String BLUE = "\033[0;34m";         // BLUE
     public static final String PURPLE = "\033[0;35m";       // PURPLE

@@ -22,9 +22,6 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "company_name")
-    private String companyName;
-
     @Enumerated(value = EnumType.STRING)
     private Industry industry;
 
@@ -35,19 +32,17 @@ public class Account {
 
     private String country;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @Column(name = "opportunity_list")
     private Set<Opportunity> opportunityList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @Column(name = "contact_list")
     private Set<Contact> contactList;
 
     // Constructor
 
     public Account(Contact contact, Opportunity opportunity, Industry industry, int employeeCount, String city, String country) {
-        // The CRM takes the Company name from Lead Object
-        setCompanyName(contact.getCompanyName());
         // The CRM prompts user for the industry, number of employees, city, and country of the company.
         setIndustry(industry);
         setEmployeeCount(employeeCount);
@@ -58,19 +53,8 @@ public class Account {
         addOpportunityToList(opportunity);
     }
 
-    public Account(Contact contact, Opportunity opportunity, String companyName, Industry industry, int employeeCount, String city, String country) {
-        setCompanyName(companyName);
-        setIndustry(industry);
-        setEmployeeCount(employeeCount);
-        setCity(city);
-        setCountry(country);
-        addContactToList(contact);
-        addOpportunityToList(opportunity);
-    }
-
     // Constructor for a new Account
-    public Account(String companyName, Industry industry, int employeeCount, String city, String country) {
-        setCompanyName(companyName);
+    public Account(Industry industry, int employeeCount, String city, String country) {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
@@ -92,7 +76,7 @@ public class Account {
     public String toString() {
         return "=== Account " + getId() + " ===" + '\n' +
                 "· industry : " + industry + '\n' +
-                "· employeeCount : " + employeeCount + '\n' +
+                "· number of employees : " + employeeCount + '\n' +
                 "· city : " + city + '\n' +
                 "· country : " + country + '\n';
     }

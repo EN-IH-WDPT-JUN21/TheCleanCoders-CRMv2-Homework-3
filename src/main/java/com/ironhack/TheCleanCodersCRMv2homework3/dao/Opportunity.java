@@ -66,6 +66,16 @@ public class Opportunity {
                 && status == that.status;
     }
 
+    @Override
+    public String toString() {
+        return "=== Opportunity " + getId() + " ===" + '\n' +
+                "· product : " + product + '\n' +
+                "· quantity : " + quantity + '\n' +
+                "· decision maker : " + decisionMaker.getName() + " - " + decisionMaker.getCompanyName() + '\n' +
+                "· associate sales rep : " + salesRep.getName() + '\n' +
+                "· status : " + status + '\n';
+    }
+
     public String getOpportunityInfo() {
         return "Product: " + this.product + ". Quantity: " + this.quantity + ". STATUS: " + this.status;
     }

@@ -43,10 +43,10 @@ public class Data {
 	public void populateRepos() {
 
 	    accountList = accountRepository.saveAll(List.of(
-	            new Account("FirstSight", Industry.MANUFACTURING, 100, "Basel", "Switzerland"),
-                new Account("TwoCompany", Industry.ECOMMERCE, 74, "Vigo", "Spain"),
-                new Account("ThirdRound", Industry.MEDICAL, 250, "Gdansk", "Poland"),
-                new Account("FourSeasons", Industry.OTHER, 12, "Faro", "Portugal")
+	            new Account(Industry.MANUFACTURING, 100, "Basel", "Switzerland"),
+                new Account(Industry.ECOMMERCE, 74, "Vigo", "Spain"),
+                new Account(Industry.MEDICAL, 250, "Gdansk", "Poland"),
+                new Account(Industry.OTHER, 12, "Faro", "Portugal")
         ));
 
         salesRepList = salesRepRepository.saveAll(List.of(

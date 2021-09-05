@@ -72,19 +72,18 @@ public class Printer {
         System.out.println("=================================================");
 
         System.out.println("\n              Possible Commands:\n " );
-        System.out.println(Style.LIGHT_PURPLE + " NEW <Object type>                  " + Style.LIGHT_GRAY + "Creates a new Object");
-        System.out.println(Style.LIGHT_PURPLE + " SHOW <Object type>                 " + Style.LIGHT_GRAY + "Lists all Objects of the selected type");
-        System.out.println(Style.LIGHT_PURPLE + " LOOKUP <Object type> <Id Number>   " + Style.LIGHT_GRAY + "Display the selected Object type with the indicated Id Number");
-        System.out.println(Style.LIGHT_PURPLE + " CONVERT <LEAD Id number>           " + Style.LIGHT_GRAY + "Converts the selected LEAD in CONTACT, OPPORTUNITY and ACCOUNT");
+        System.out.println(Style.LIGHT_PURPLE + " NEW <Object type>                      " + Style.LIGHT_GRAY + "Creates a new Object");
+        System.out.println(Style.LIGHT_PURPLE + " SHOW <Object type>                     " + Style.LIGHT_GRAY + "Lists all Objects of the selected type");
+        System.out.println(Style.LIGHT_PURPLE + " LOOKUP <Object type> <Id Number>       " + Style.LIGHT_GRAY + "Display the selected Object type with the indicated Id Number");
+        System.out.println(Style.LIGHT_PURPLE + " CONVERT <LEAD Id number>               " + Style.LIGHT_GRAY + "Converts the selected LEAD in CONTACT, OPPORTUNITY and ACCOUNT");
         System.out.println(Style.LIGHT_PURPLE + " CLOSE-WON <OPPORTUNITY Id Number>      " + Style.LIGHT_GRAY + "Changes the selected OPPORTUNITY status to CLOSE-WON");
         System.out.println(Style.LIGHT_PURPLE + " CLOSE-LOST <OPPORTUNITY Id Number>     " + Style.LIGHT_GRAY + "Changes the selected OPPORTUNITY status to CLOSE-LOST");
         System.out.println(Style.LIGHT_PURPLE + " OPEN <OPPORTUNITY Id Number>           " + Style.LIGHT_GRAY + "Changes the selected OPPORTUNITY status to OPEN");
         System.out.println(Style.LIGHT_PURPLE + " POPULATE                               " + Style.LIGHT_GRAY + "Populate the database with some sample data");
-        System.out.println(Style.LIGHT_PURPLE + " SAVE                               " + Style.LIGHT_GRAY + "Saves data to files");
-        System.out.println(Style.LIGHT_PURPLE + " HELP                               " + Style.LIGHT_GRAY + "Displays this help info");
-        System.out.println(Style.LIGHT_PURPLE + " EXIT                               " + Style.LIGHT_GRAY + "Terminates the cleanCRM program" + Style.DEFAULT);
+        System.out.println(Style.LIGHT_PURPLE + " HELP                                   " + Style.LIGHT_GRAY + "Displays this help info");
+        System.out.println(Style.LIGHT_PURPLE + " EXIT                                   " + Style.LIGHT_GRAY + "Terminates the cleanCRM program" + Style.DEFAULT);
         System.out.println("\n\n             Object Types Available:\n ");
-        System.out.println(Style.LIGHT_PURPLE + " LEAD\n CONTACT\n OPPORTUNITY\n ACCOUNT\n");
+        System.out.println(Style.LIGHT_PURPLE + " LEAD\n CONTACT\n OPPORTUNITY\n ACCOUNT\n SALESREP\n");
         System.out.println(Style.LIGHT_GRAY + "\n*All Object types accepted in plural (e.g OPPORTUNITY and OPPORTUNITIES are both accepted forms) according to context");
         System.out.println("*All commands are case-insensitive\n" + Style.DEFAULT);
     }

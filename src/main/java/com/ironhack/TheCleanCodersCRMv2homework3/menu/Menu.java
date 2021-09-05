@@ -7,12 +7,9 @@ import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
 import com.ironhack.TheCleanCodersCRMv2homework3.io.FileManager;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
 import java.util.Objects;
 
 @Component
@@ -62,11 +59,10 @@ public class Menu {
                 }
             }
         } while (command != Command.EXIT);
-        System.out.println("\nSaving all Objects...");
+        System.out.println(Style.LIGHT_GRAY + "\n\n\n\n\n\n\n\n\n\n\nAll data saved");
+        System.out.println(Style.OCHER + "Thank you for using the cleanCRM. Have a nice day.\n" + Style.DEFAULT);
         Thread.sleep(500);
-        System.out.println(Style.OCHER + "Thank you for using the cleanCRM. Have a nice day.");
         input.close();
-        fileManager.exportData();
     }
 
     public String[] splitInput(String string) {
@@ -74,6 +70,7 @@ public class Menu {
     }
 
     public void interpretInput(String[] inputList) {
+        creator = new Creator(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository, input, printer);
         Command command = input.getCommandFromString(inputList[0]);
         ObjectType objectType;
         int id;
@@ -118,7 +115,6 @@ public class Menu {
                 break;
             case POPULATE:
                 data = new Data(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository);
-                creator = new Creator(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository, input, printer);
                 data.populateRepos();
                 break;
             case OPEN:
@@ -127,10 +123,6 @@ public class Menu {
                 break;
             case HELP:
                 printer.helpPage();
-                break;
-            case SAVE:
-                printer.print("All objects saved to .txt files.");
-                fileManager.exportData();
                 break;
         }
     }
@@ -148,6 +140,9 @@ public class Menu {
                 break;
             case OPPORTUNITY:
                 creator.createOpportunity();
+                break;
+            case SALESREP:
+                creator.createSalesRep();
                 break;
         }
     }

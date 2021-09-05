@@ -9,6 +9,7 @@ import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 @Component
@@ -47,6 +48,26 @@ public class Input {
 
         scanner.nextLine();
         return intValue;
+    }
+
+    public String getYesOrNo(){
+        String answer = "";
+        boolean error = false;
+
+        do {
+            String input = scanner.next();
+
+            try {
+                answer = input;
+                error = Validator.isAnswerYesOrNoValid(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Not accepted argument.");
+            }
+
+        } while (!error);
+
+        scanner.nextLine();
+        return answer.toUpperCase();
     }
 
     public void close() {
