@@ -78,7 +78,7 @@ public class Menu {
 
         switch (command) {
             case NEW:
-                objectType = input.getObjectTypeFromStringSingular(inputList[1]);
+                objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
                     printer.printTypoInfo(inputList[1]);
                 } else {
@@ -86,7 +86,7 @@ public class Menu {
                 }
                 break;
             case SHOW:
-                objectType = input.getObjectTypeFromStringPlural(inputList[1]);
+                objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
                     printer.printTypoInfo(inputList[1]);
                 } else {
@@ -94,7 +94,7 @@ public class Menu {
                 }
                 break;
             case LOOKUP:
-                objectType = input.getObjectTypeFromStringSingular(inputList[1]);
+                objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
                     printer.printTypoInfo(inputList[1]);
                 } else {
@@ -149,19 +149,22 @@ public class Menu {
     }
 
     public void show(ObjectType objectType) {
-        System.out.println("Shows all " + objectType.getPluralForm() + ".\n");
+        System.out.println(Style.OCHER + "Shows all " + objectType.getPluralForm() + ".\n" + Style.DEFAULT);
         switch (objectType) {
             case ACCOUNT:
-                printer.printAllAccounts();
+                creator.printAllAccounts();
                 break;
             case CONTACT:
-                printer.printAllContacts();
+                creator.printAllContacts();
                 break;
             case LEAD:
-                printer.printAllLeads();
+                creator.printAllLeads();
                 break;
             case OPPORTUNITY:
-                printer.printAllOpportunities();
+                creator.printAllOpportunities();
+                break;
+            case SALESREP:
+                creator.printAllSalesRep();
                 break;
         }
     }
@@ -169,16 +172,19 @@ public class Menu {
     public void lookup(ObjectType objectType, int id) {
         switch (objectType) {
             case ACCOUNT:
-//                printer.print(Account.getById(id, Account.getAllAccounts()).toString());
+                System.out.println(creator.getAccountRepository().findById(Long.valueOf(id)).get());
                 break;
             case CONTACT:
-//                printer.print(Contact.getById(id, Contact.getAllContacts()).toString());
+                System.out.println(creator.getContactRepository().findById(Long.valueOf(id)).get());
                 break;
             case LEAD:
-//                printer.print(Lead.getById(id, Lead.getAllLeads()).toString());
+                System.out.println(creator.getLeadRepository().findById(Long.valueOf(id)).get());
                 break;
             case OPPORTUNITY:
-//                printer.print(Opportunity.getById(id, Opportunity.getAllOpportunities()).toString());
+                System.out.println(creator.getOpportunityRepository().findById(Long.valueOf(id)).get());
+                break;
+            case SALESREP:
+                System.out.println(creator.getSalesRepRepository().findById(Long.valueOf(id)).get());
                 break;
         }
     }
@@ -209,7 +215,4 @@ public class Menu {
 
     }
 
-    public void back() {
-        return;
-    }
 }

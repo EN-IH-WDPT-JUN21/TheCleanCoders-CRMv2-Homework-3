@@ -84,21 +84,12 @@ public class Input {
     }
 
     // Method to convert case insensitive string (in singular form) to ObjectTypes Enum
-    public ObjectType getObjectTypeFromStringSingular(String string) {
+    public ObjectType getObjectType(String string) {
         string = string.toUpperCase();
         for (ObjectType objectType : ObjectType.values()) {
             if (string.equals(objectType.getSingularForm())) {
                 return objectType;
-            }
-        }
-        return null;
-    }
-
-    // Method to convert case insensitive string (in plural form) to ObjectTypes Enum
-    public ObjectType getObjectTypeFromStringPlural(String string) {
-        string = string.toUpperCase();
-        for (ObjectType objectType : ObjectType.values()) {
-            if (string.equals(objectType.getPluralForm())) {
+            } else if (string.equals(objectType.getPluralForm())) {
                 return objectType;
             }
         }

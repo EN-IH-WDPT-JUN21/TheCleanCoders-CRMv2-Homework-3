@@ -1,35 +1,17 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Account;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Printer {
+
     public void print(String text) {
         System.out.println(text);
-    }
-
-    public void printAllAccounts() {
-//        this method has to be created using the database
-
-    }
-
-    public void printAllContacts() {
-//        for (Item contact : Contact.allContacts) {
-//            print(contact.toString());
-//        }
-    }
-
-    public void printAllLeads() {
-//        for(Item lead : Lead.allLeads) {
-//            print(lead.toString());
-//        }
-    }
-
-    public void printAllOpportunities() {
-//        for (Item opportunity : Opportunity.allOpportunities) {
-//            print(opportunity.toString());
-//        }
     }
 
     public void printTypoInfo(String wrongWord) {
@@ -84,6 +66,5 @@ public class Printer {
         System.out.println(Style.LIGHT_GRAY + "\n*All Object types accepted in plural (e.g OPPORTUNITY and OPPORTUNITIES are both accepted forms) according to context");
         System.out.println("*All commands are case-insensitive\n" + Style.DEFAULT);
     }
-    
-    
+
 }

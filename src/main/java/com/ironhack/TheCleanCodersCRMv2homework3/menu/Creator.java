@@ -6,10 +6,15 @@ import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
+
+@Getter
+@Setter
 
 @Component
 public class Creator {
@@ -465,6 +470,36 @@ public class Creator {
         // Print an OPPORTUNITY creation message
         System.out.println(Style.OCHER + "\nA new OPPORTUNITY has been created with the following info:" + Style.DEFAULT);
         System.out.println(opportunity);
+    }
+
+    public void printAllAccounts() {
+        for(Account account : accountRepository.findAll()){
+            System.out.println(account);
+        }
+    }
+
+    public void printAllContacts() {
+        for(Contact contact : contactRepository.findAll()){
+            System.out.println(contact);
+        }
+    }
+
+    public void printAllLeads() {
+        for(Lead lead : leadRepository.findAll()){
+            System.out.println(lead);
+        }
+    }
+
+    public void printAllOpportunities() {
+        for(Opportunity opportunity : opportunityRepository.findAll()){
+            System.out.println(opportunity);
+        }
+    }
+
+    public void printAllSalesRep() {
+        for(SalesRep salesRep : salesRepRepository.findAll()){
+            System.out.println(salesRep);
+        }
     }
 
 }
