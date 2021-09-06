@@ -20,6 +20,9 @@ CREATE TABLE contacts_table (
                               phone_number VARCHAR(250) NOT NULL,
                               email VARCHAR(250) NOT NULL,
                               company_name VARCHAR(250) NOT NULL
+--                              opportunity INT NOT NULL,
+--                              FOREIGN KEY (opportunity) REFERENCES opportunities_table(id)
+
 );
 
 CREATE TABLE sales_rep_table (
