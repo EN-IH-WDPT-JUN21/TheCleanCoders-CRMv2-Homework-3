@@ -1,10 +1,6 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.dao.Account;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
-import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
-import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

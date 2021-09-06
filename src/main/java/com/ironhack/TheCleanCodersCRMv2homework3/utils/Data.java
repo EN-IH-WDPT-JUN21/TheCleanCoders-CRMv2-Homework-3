@@ -5,15 +5,10 @@ import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
-@Getter
-@Setter
 
 @Component
 public class Data {
