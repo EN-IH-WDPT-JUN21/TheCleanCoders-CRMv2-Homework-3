@@ -102,6 +102,41 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Long> 
             "GROUP BY accounts_table.industry", nativeQuery = true)
     String[][] reportOpenOpportunitiesByIndustry();
 
+    @Query(value = "SELECT AVG(quantity) FROM opportunities_table", nativeQuery = true)
+    double meanQuantity();
 
+    @Query(value = "SELECT AVG(dd.quantity) AS median_val " +
+            "FROM (SELECT opportunities_table.quantity, @rownum\\:=@rownum+1 as 'row_number', @total_rows\\:=@rownum " +
+            "FROM opportunities_table, (SELECT @rownum\\:=0) r " +
+            "ORDER BY opportunities_table.quantity) as dd " +
+            "WHERE dd.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) )", nativeQuery = true)
+    double medianQuantity();
+
+    @Query(value = "SELECT MAX(quantity) FROM opportunities_table", nativeQuery = true)
+    int maxQuantity();
+
+    @Query(value = "SELECT MIN(quantity) FROM opportunities_table", nativeQuery = true)
+    int minQuantity();
+
+    @Query(value = "SELECT AVG(a.opps_per_account) " +
+            "FROM (SELECT account, COUNT(account) AS opps_per_account " +
+            "FROM opportunities_table GROUP BY account) AS a", nativeQuery = true)
+    double meanOppsPerAccount();
+
+    @Query(value = "SELECT AVG(dd.opps_per_account) AS median_val " +
+            "FROM (SELECT a.opps_per_account, @rownum\\:=@rownum+1 as 'row_number', @total_rows\\:=@rownum " +
+            "FROM (SELECT account, COUNT(account) AS opps_per_account " +
+            "FROM opportunities_table GROUP BY account) AS a, (SELECT @rownum\\:=0) r " +
+            "ORDER BY a.opps_per_account) as dd " +
+            "WHERE dd.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) )", nativeQuery = true)
+    double medianOppsPerAccount();
+
+    @Query(value = "SELECT MAX(a.opps_per_account) FROM (SELECT account, COUNT(account) AS opps_per_account " +
+            "FROM opportunities_table GROUP BY account) AS a", nativeQuery = true)
+    int maxOppsPerAccount();
+
+    @Query(value = "SELECT MIN(a.opps_per_account) FROM (SELECT account, COUNT(account) AS opps_per_account " +
+            "FROM opportunities_table GROUP BY account) AS a", nativeQuery = true)
+    int minOppsPerAccount();
     
 }
