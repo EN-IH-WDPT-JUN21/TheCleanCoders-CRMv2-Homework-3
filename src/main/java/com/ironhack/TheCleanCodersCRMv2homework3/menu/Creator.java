@@ -71,7 +71,7 @@ public class Creator {
 
     }
 
-    // Method used to create an ACCOUNT independently
+    // Method used to create an ACCOUNT independently or when a LEAD is converted
     public void createAccount() {
 
         System.out.println(Style.OCHER + "\nCreating a new ACCOUNT." + Style.DEFAULT);
@@ -125,67 +125,12 @@ public class Creator {
 
     }
 
-    // Method that creates an ACCOUNT when LEAD is converted
-    public void createAccount(Lead lead) {
-        // Asks user all the necessary info and then calls constructor
-        System.out.println(Style.OCHER + "\nAdditional information required for the ACCOUNT." + Style.DEFAULT);
-        System.out.println("\nPlease input the following:");
-
-        System.out.println("\nChoose type of Industry:");
-        Industry industry = input.chooseIndustry();
-
-        System.out.println("\nNumber of employees of the Company");
-        int employeeCount = input.getIntegerHigherThanZero();
-
-
-        String city;
-        boolean errorCity = false;
-        do {
-
-            System.out.println("\nCity where the Company is based:");
-            city = input.getString();
-
-            try {
-                errorCity =Validator.isStringValid(city);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Input is whether empty or too long, or it may contain not valid characters.");
-            }
-
-        } while (!errorCity);
-
-
-        String country;
-        boolean errorCountry = false;
-        do {
-
-            System.out.println("\nCountry where the Company is based:");
-            country = input.getString();
-
-            try {
-                errorCountry = Validator.isStringValid(country);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Input is whether empty or too long, or it may contain not valid characters.");
-            }
-
-        } while (!errorCountry);
-
-        Account account = new Account(industry, employeeCount, city, country);
-
-        // New ACCOUNT Object saved in database
-        accountRepository.save(account);
-
-        // Print an ACCOUNT creation message
-        System.out.println(Style.OCHER + "\nA new ACCOUNT has been created with the following info:" + Style.DEFAULT);
-        System.out.println(account);
-
-    }
-
     // Method used to create a LEAD independently
     public void createLead() {
         // First it is checked if there is any Sales Rep as we need to associate one to our Lead.
         if(salesRepRepository.count() == 0L){
             System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Lead cannot be created." +  Style.DEFAULT);
-            System.out.println("\nPlease, select other option.");
+            System.out.println("\nPlease, select another option.");
             return;
         } else {
             System.out.println(Style.OCHER + "\nCreating a new LEAD." + Style.DEFAULT);
@@ -258,22 +203,7 @@ public class Creator {
         } while (!errorCompany);
 
 
-        int idSalesRep;
-        boolean errorSRep = false;
-        do {
-
-            System.out.println("\nSALES REP id:");
-            idSalesRep = input.getIntegerHigherThanZero();
-
-            try{
-                salesRepRepository.findById(Long.valueOf(idSalesRep)).get();
-                errorSRep = true;
-            } catch (NoSuchElementException e){
-                System.out.println(Style.RED + "\nThe id entered does not correspond to any sales rep.");
-                System.out.println(Style.DEFAULT + "\nPlease, try again.");
-            }
-
-        } while(!errorSRep);
+        int idSalesRep = getExistingSalesRep();
 
         // New LEAD Object saved in database
         Lead lead = new Lead(name, phoneNumber, email, companyName, salesRepRepository.findById(Long.valueOf(idSalesRep)).get());
@@ -285,7 +215,39 @@ public class Creator {
 
     }
 
-    //  Method that creates a CONTACT automatically when LEAD is converted
+    // Method used to create a CONTACT independently
+    public void createContact() {
+        // First it is checked if there is any Lead and any Account as we need to associate one of each to our Contact.
+        if(leadRepository.count() == 0L){
+            System.out.println(Style.RED + "\nThere is no Lead saved in this database. A new Contact cannot be created." +  Style.DEFAULT);
+            System.out.println("\nPlease, select another option.");
+            return;
+        } else if(accountRepository.count() == 0L){
+            System.out.println(Style.RED + "\nThere is no Account saved in this database. A new Contact cannot be created." +  Style.DEFAULT);
+            System.out.println("\nPlease, select another option.");
+            return;
+        } else {
+            System.out.println(Style.OCHER + "\nCreating a new CONTACT." + Style.DEFAULT);
+            System.out.println("Please input the following:");
+        }
+
+        // Then, the user is asked for all the necessary info
+
+        int idLead = getExistingLead();
+
+        int idAccount = getExistingAccount();
+
+        // New CONTACT Object saved in database
+        Contact contact = new Contact(leadRepository.findById(Long.valueOf(idLead)).get(), accountRepository.findById(Long.valueOf(idAccount)).get());
+        contactRepository.save(contact);
+
+        // Print a CONTACT creation message
+        System.out.println(Style.OCHER + "\nA new CONTACT has been created with the following info:" + Style.DEFAULT);
+        System.out.println(contact);
+
+    }
+
+    //  Method that creates a CONTACT automatically when LEAD is converted, creating a new ACCOUNT
     public void createContact(Lead lead) {
         // This method is implemented right after the createAccount(Lead lead) method, triggered by the "convert <id number>" command.
         // This means that the Account associated is the last one saved in the accountRepository.
@@ -299,67 +261,17 @@ public class Creator {
         System.out.println(contact);
     }
 
-    // Method used to create a CONTACT independently from a LEAD
-    public void createContact() {
-        // First it is checked if there is any Lead and any Account as we need to associate one of each to our Contact.
-        if(leadRepository.count() == 0L){
-            System.out.println(Style.RED + "\nThere is no Lead saved in this database. A new Contact cannot be created." +  Style.DEFAULT);
-            System.out.println("\nPlease, select other option.");
-            return;
-        } else if(accountRepository.count() == 0L){
-            System.out.println(Style.RED + "\nThere is no Account saved in this database. A new Contact cannot be created." +  Style.DEFAULT);
-            System.out.println("\nPlease, select other option.");
-            return;
-        } else {
-            System.out.println(Style.OCHER + "\nCreating a new CONTACT." + Style.DEFAULT);
-            System.out.println("Please input the following:");
-        }
+    //  Method that creates a CONTACT automatically when LEAD is converted, selecting an existing ACCOUNT
+    public void createContact(Lead lead, Account account) {
+        // This method is triggered by selecting that you do not want to create a new Account
+        Contact contact = new Contact(lead, account);
 
-        // Then, the user is asked for all the necessary info
-
-        int idLead;
-        boolean errorLead = false;
-        do {
-
-            System.out.println("\nLEAD id:");
-            idLead = input.getIntegerHigherThanZero();
-
-            try{
-                leadRepository.findById(Long.valueOf(idLead)).get();
-                errorLead = true;
-            } catch (NoSuchElementException e){
-                System.out.println(Style.RED + "\nThe id entered does not correspond to any lead.");
-                System.out.println(Style.DEFAULT + "\nPlease, try again.");
-            }
-
-        } while(!errorLead);
-
-
-        int idAccount;
-        boolean errorAccount = false;
-        do {
-
-            System.out.println("\nACCOUNT id:");
-            idAccount = input.getIntegerHigherThanZero();
-
-            try{
-                accountRepository.findById(Long.valueOf(idAccount)).get();
-                errorAccount = true;
-            } catch (NoSuchElementException e){
-                System.out.println(Style.RED + "\nThe id entered does not correspond to any account.");
-                System.out.println(Style.DEFAULT + "\nPlease, try again.");
-            }
-
-        } while(!errorAccount);
-
-        // New CONTACT Object saved in database
-        Contact contact = new Contact(leadRepository.findById(Long.valueOf(idLead)).get(), accountRepository.findById(Long.valueOf(idAccount)).get());
+        // New CONTACT Object saved in database with the LEAD information
         contactRepository.save(contact);
 
         // Print a CONTACT creation message
         System.out.println(Style.OCHER + "\nA new CONTACT has been created with the following info:" + Style.DEFAULT);
         System.out.println(contact);
-
     }
 
     // Method used when an OPPORTUNITY is created independently
@@ -367,11 +279,11 @@ public class Creator {
         // First it is checked if there is any Contact and Sales Rep as we need to associate one of each to our Opportunity.
         if(contactRepository.count() == 0L){
             System.out.println(Style.RED + "\nThere is no Contact saved in this database. A new Opportunity cannot be created." +  Style.DEFAULT);
-            System.out.println("\nPlease, select other option.");
+            System.out.println("\nPlease, select another option.");
             return;
         } else if(salesRepRepository.count() == 0L) {
             System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Opportunity cannot be created." +  Style.DEFAULT);
-            System.out.println("\nPlease, select other option.");
+            System.out.println("\nPlease, select another option.");
             return;
         } else {
             System.out.println(Style.OCHER + "\nCreating a new Opportunity." + Style.DEFAULT);
@@ -411,22 +323,7 @@ public class Creator {
 
         } while(!errorContact);
 
-        int idSalesRep;
-        boolean errorSRep = false;
-        do {
-
-            System.out.println("\nSALES REP id:");
-            idSalesRep = input.getIntegerHigherThanZero();
-
-            try{
-                salesRepRepository.findById(Long.valueOf(idSalesRep)).get();
-                errorSRep = true;
-            } catch (NoSuchElementException e){
-                System.out.println(Style.RED + "\nThe id entered does not correspond to any sales rep.");
-                System.out.println(Style.DEFAULT + "\nPlease, try again.");
-            }
-
-        } while(!errorSRep);
+        int idSalesRep = getExistingSalesRep();
 
         System.out.println("\nChoose the product");
         Product product = input.chooseProduct();
@@ -444,7 +341,7 @@ public class Creator {
         System.out.println(opportunity);
     }
 
-    // Method that creates an OPPORTUNITY when LEAD is converted
+    // Method that creates an OPPORTUNITY when LEAD is converted, creating a new ACCOUNT
     public void createOpportunityByLeadConversion(Lead lead) {
         System.out.println(Style.OCHER + "\nAdditional information required for the OPPORTUNITY." + Style.DEFAULT);
         System.out.println("\nPlease input the following:");
@@ -463,6 +360,33 @@ public class Creator {
         // last one saved in the contactRepository and the Account associated is the last one saved in the accountRepository.
         Opportunity opportunity = new Opportunity(product, quantity, contactRepository.findById(Long.valueOf(contactRepository.count())).get(),
                 lead.getSalesRep(), accountRepository.findById(Long.valueOf(accountRepository.count())).get());
+
+        // New OPPORTUNITY Object saved in database
+        opportunityRepository.save(opportunity);
+
+        // Print an OPPORTUNITY creation message
+        System.out.println(Style.OCHER + "\nA new OPPORTUNITY has been created with the following info:" + Style.DEFAULT);
+        System.out.println(opportunity);
+    }
+
+    // Method that creates an OPPORTUNITY when LEAD is converted, selecting an existing ACCOUNT
+    public void createOpportunityByLeadConversion(Lead lead, Account account) {
+        System.out.println(Style.OCHER + "\nAdditional information required for the OPPORTUNITY." + Style.DEFAULT);
+        System.out.println("\nPlease input the following:");
+
+
+        System.out.println("\nProduct type:");
+        Product product = input.chooseProduct();
+
+
+        System.out.println("\nQuantity of trucks");
+        int quantity = input.getIntegerHigherThanZero();
+
+
+        // This method is implemented right after the createContact(Lead lead) method triggered by the "convert <id number>" command.
+        // This means that the Contact associated with this Opportunity is the last one saved in the contactRepository.
+        Opportunity opportunity = new Opportunity(product, quantity, contactRepository.findById(Long.valueOf(contactRepository.count())).get(),
+                lead.getSalesRep(), account);
 
         // New OPPORTUNITY Object saved in database
         opportunityRepository.save(opportunity);
@@ -500,6 +424,77 @@ public class Creator {
         for(SalesRep salesRep : salesRepRepository.findAll()){
             System.out.println(salesRep);
         }
+    }
+
+    // Requests an ACCOUNT id and validates whether or not it exists in the database
+    public int getExistingAccount() {
+
+        int idAccount;
+        boolean errorAccount = false;
+        do {
+
+            System.out.println("\nACCOUNT id:");
+            idAccount = input.getIntegerHigherThanZero();
+
+            try{
+                accountRepository.findById(Long.valueOf(idAccount)).get();
+                errorAccount = true;
+            } catch (NoSuchElementException e){
+                System.out.println(Style.RED + "\nThe id entered does not correspond to any account.");
+                System.out.println(Style.DEFAULT + "\nPlease, try again.");
+            }
+
+        } while(!errorAccount);
+
+        return idAccount;
+
+    }
+
+    // Requests a LEAD id and validates whether or not it exists in the database
+    public int getExistingLead() {
+        int idLead;
+        boolean errorLead = false;
+        do {
+
+            System.out.println("\nLEAD id:");
+            idLead = input.getIntegerHigherThanZero();
+
+            try{
+                leadRepository.findById(Long.valueOf(idLead)).get();
+                errorLead = true;
+            } catch (NoSuchElementException e){
+                System.out.println(Style.RED + "\nThe id entered does not correspond to any lead.");
+                System.out.println(Style.DEFAULT + "\nPlease, try again.");
+            }
+
+        } while(!errorLead);
+
+        return idLead;
+
+    }
+
+    // Requests a LEAD id and validates whether or not it exists in the database
+    public int getExistingSalesRep() {
+
+        int idSalesRep;
+        boolean errorSRep = false;
+        do {
+
+            System.out.println("\nSALES REP id:");
+            idSalesRep = input.getIntegerHigherThanZero();
+
+            try{
+                salesRepRepository.findById(Long.valueOf(idSalesRep)).get();
+                errorSRep = true;
+            } catch (NoSuchElementException e){
+                System.out.println(Style.RED + "\nThe id entered does not correspond to any sales rep.");
+                System.out.println(Style.DEFAULT + "\nPlease, try again.");
+            }
+
+        } while(!errorSRep);
+
+        return idSalesRep;
+
     }
 
 }

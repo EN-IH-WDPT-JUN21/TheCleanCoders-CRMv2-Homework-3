@@ -46,7 +46,8 @@ public class Data {
 	            new Account(Industry.MANUFACTURING, 100, "Basel", "Switzerland"),
                 new Account(Industry.ECOMMERCE, 74, "Vigo", "Spain"),
                 new Account(Industry.MEDICAL, 250, "Gdansk", "Poland"),
-                new Account(Industry.OTHER, 12, "Faro", "Portugal")
+                new Account(Industry.OTHER, 12, "Faro", "Portugal"),
+				new Account(Industry.PRODUCE, 52, "Weimar", "Germany")
         ));
 
         salesRepList = salesRepRepository.saveAll(List.of(
@@ -61,23 +62,24 @@ public class Data {
 				new Contact("Mara", "135791113", "mara@ironhack.es", "theCleanCoders Inc", accountList.get(0)),
 				new Contact("Katarzyna", "2468101214", "catKat@ironhack.es", "theCleanCodersPoland", accountList.get(1)),
 				new Contact("Natalia", "314152878", "natalia@ironhack.es", "theCleanCoders Ltd", accountList.get(2)),
-				new Contact("Vitaliano", "2112345678", "vitaliano@ironhack.es", "theCleanCoders Lda", accountList.get(3))
+				new Contact("Vitaliano", "2112345678", "vitaliano@ironhack.es", "theCleanCoders Lda", accountList.get(3)),
+				new Contact("Joao Lopes", "351962458752", "meumail@meuservidor.pt", "cleanDevelopers", accountList.get(4))
 		));
 
 		leadList = leadRepository.saveAll(List.of(
 				new Lead("Harry Potter", "0044123456", "harryp@hogwarts.wiz", "Gryffindor Ltd", salesRepList.get(1)),
 				new Lead("Raistlin", "1234564879", "wizkid@majere.org", "TheCompanyOfDragons", salesRepList.get(4)),
 				new Lead("Verissimo", "351969696585", "rambodeolhao@malucos.pt", "A Doca de Pesca", salesRepList.get(3)),
-				new Lead("Joao Lopes", "351962458752", "meumail@meuservidor.pt", "cleanDevelopers", salesRepList.get(0)),
+				new Lead("Arkansas San", "+011962458752", "arkansaswell@gmail.com", "Wellness Co.", salesRepList.get(0)),
 				new Lead("Miguel Naves", "5643218563", "miguel@nevermind.com", "Os fortesnight", salesRepList.get(3))
 		));
 
         opportunityList = opportunityRepository.saveAll(List.of(
                 new Opportunity(Product.BOX, 8, contactList.get(0), salesRepList.get(1), accountList.get(1)),
-                new Opportunity(Product.FLATBED, 7, contactList.get(0), salesRepList.get(1), accountList.get(0)),
-                new Opportunity(Product.HYBRID, 1, contactList.get(1), salesRepList.get(0), accountList.get(1)),
-                new Opportunity(Product.HYBRID, 9, contactList.get(2), salesRepList.get(0), accountList.get(2)),
-                new Opportunity(Product.BOX, 7, contactList.get(1), salesRepList.get(2), accountList.get(3))
+                new Opportunity(Product.FLATBED, 7, contactList.get(1), salesRepList.get(1), accountList.get(0)),
+                new Opportunity(Product.HYBRID, 1, contactList.get(2), salesRepList.get(0), accountList.get(1)),
+                new Opportunity(Product.HYBRID, 9, contactList.get(3), salesRepList.get(0), accountList.get(2)),
+                new Opportunity(Product.BOX, 7, contactList.get(4), salesRepList.get(2), accountList.get(3))
         ));
 
 		System.out.println(Style.OCHER + "\nDATA SUCCESSFULLY IMPLEMENTED\n" + Style.DEFAULT);

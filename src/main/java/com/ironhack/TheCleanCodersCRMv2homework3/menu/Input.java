@@ -56,16 +56,16 @@ public class Input {
             String input = scanner.next();
 
             try {
-                answer = input;
-                error = Validator.isAnswerYesOrNoValid(input);
+                answer = input.toUpperCase();
+                error = Validator.isAnswerYesOrNoValid(answer);
             } catch (IllegalArgumentException e) {
-                System.out.println("Not accepted argument.");
+                System.out.println("Invalid response.");
             }
 
         } while (!error);
 
         scanner.nextLine();
-        return answer.toUpperCase();
+        return answer;
     }
 
     public void close() {

@@ -31,10 +31,10 @@ public class Validator {
     }
 
     public static boolean isAnswerYesOrNoValid(String string) {
-        if(string.length() > 0 && string.length() < 4 && string.replaceAll("\\s+","").matches("[yesnoYESNO]")){
+        if(string.length() > 0 && string.length() < 4 && string.replaceAll("\\s+","").matches("[YESNO]+")){
             return true;
         } else {
-            throw new IllegalArgumentException("Not accepted argument.");
+            throw new IllegalArgumentException("Invalid response.");
         }
     }
 

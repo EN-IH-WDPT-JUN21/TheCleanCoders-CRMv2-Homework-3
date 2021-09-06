@@ -62,8 +62,8 @@ public class Printer {
         System.out.println(Style.LIGHT_PURPLE + " HELP                                   " + Style.LIGHT_GRAY + "Displays this help info");
         System.out.println(Style.LIGHT_PURPLE + " EXIT                                   " + Style.LIGHT_GRAY + "Terminates the cleanCRM program" + Style.DEFAULT);
         System.out.println("\n\n             Object Types Available:\n ");
-        System.out.println(Style.LIGHT_PURPLE + " LEAD\n CONTACT\n OPPORTUNITY\n ACCOUNT\n SALESREP\n");
-        System.out.println(Style.LIGHT_GRAY + "\n*All Object types accepted in plural (e.g OPPORTUNITY and OPPORTUNITIES are both accepted forms) according to context");
+        System.out.println(Style.LIGHT_PURPLE + " LEAD / CONTACT / OPPORTUNITY / ACCOUNT / SALESREP\n");
+        System.out.println(Style.LIGHT_GRAY + "*All Object types accepted in plural (e.g. OPPORTUNITY and OPPORTUNITIES are both accepted forms)");
         System.out.println("*All commands are case-insensitive\n" + Style.DEFAULT);
     }
 
