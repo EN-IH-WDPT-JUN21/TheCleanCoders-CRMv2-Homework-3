@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileManager {
-    private final String ACCOUNTS_FILE_NAME = "Accounts.txt";
+/*    private final String ACCOUNTS_FILE_NAME = "Accounts.txt";
     private final String CONTACTS_FILE_NAME = "Contacts.txt";
     private final String LEADS_FILE_NAME = "Leads.txt";
     private final String OPPORTUNITIES_FILE_NAME = "Opportunities.txt";
@@ -134,7 +134,7 @@ public class FileManager {
 //        }
     }
 
-    public void importContacts() {
+    *//*public void importContacts() {
         String filename = CONTACTS_FILE_NAME;
         try {
             Scanner scanner = new Scanner(new File(filename));
@@ -150,9 +150,9 @@ public class FileManager {
         } catch (FileNotFoundException exception) {
             printer.printImportErrorInfo(filename);
         }
-    }
+    }*//*
 
-    /*                                    Is this method going to be used?            */
+    *//*                                    Is this method going to be used?            *//*
     public void importOpportunities() {
 //        String filename = OPPORTUNITIES_FILE_NAME;
 //        try {
@@ -173,7 +173,7 @@ public class FileManager {
 
 
 
-/*                                  Is this method still going to be used?                    */
+*//*                                  Is this method still going to be used?                    *//*
     public void importAccounts() {
 //        String filename = ACCOUNTS_FILE_NAME;
 //        try {
@@ -193,6 +193,6 @@ public class FileManager {
 //        } catch (FileNotFoundException exception) {
 //            printer.printImportErrorInfo(filename);
 //        }
-    }
+    }*/
 
 }

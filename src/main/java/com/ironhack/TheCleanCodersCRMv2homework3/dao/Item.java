@@ -1,6 +1,5 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,23 +56,6 @@ public abstract class Item {
         } catch(InputMismatchException ex){
             System.out.println("Wrong email address");
         }
-    }
-
-    @Override
-    public String toString() {
-        return "=== Contact " + getId() + " ===" + '\n' +
-                "· name : " + name + '\n' +
-                "· phone number : " + phoneNumber + '\n' +
-                "· email : " + email + '\n' +
-                "· company name : " + companyName + '\n';
-    }
-
-    public String toStringInOppClass() {
-        return Style.DARK_GRAY + "CONTACT " + getId() + '\n' + Style.DEFAULT +
-                "   - name : " + name + '\n' +
-                "   - phone number : " + phoneNumber + '\n' +
-                "   - email : " + email + '\n' +
-                "   - company name : " + companyName;
     }
 
 }

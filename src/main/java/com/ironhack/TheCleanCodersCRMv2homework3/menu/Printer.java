@@ -1,34 +1,13 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Printer {
+
     public void print(String text) {
         System.out.println(text);
-    }
-
-    public void printAllAccounts() {
-//        this method has to be created using the database
-
-    }
-
-    public void printAllContacts() {
-//        for (Item contact : Contact.allContacts) {
-//            print(contact.toString());
-//        }
-    }
-
-    public void printAllLeads() {
-//        for(Item lead : Lead.allLeads) {
-//            print(lead.toString());
-//        }
-    }
-
-    public void printAllOpportunities() {
-//        for (Item opportunity : Opportunity.allOpportunities) {
-//            print(opportunity.toString());
-//        }
     }
 
     public void printTypoInfo(String wrongWord) {
@@ -43,8 +22,6 @@ public class Printer {
         System.out.println("There was an error while importing data from file " + filename);
     }   
 
-
-      
     public void welcomeMessage(){
         print("\n\n============================================================");
         print("                       Welcome to\n");
@@ -64,43 +41,26 @@ public class Printer {
       
     }
       
-      
     public void helpPage(){
         System.out.println("=================================================");
         System.out.println("            The cleanCRM Help page");
         System.out.println("=================================================");
-//        System.out.println("\n      Possible Commands:" );
-//        System.out.println(" NEW <Object type>                  Creates a new Object");
-//        System.out.println(" SHOW <Object type>                 Lists all Objects of the selected type");
-//        System.out.println(" LOOKUP <Object type> <Id Number>   Display the selected Object type with the indicated Id Number");
-//        System.out.println(" CONVERT <LEAD Id number>           Converts the selected LEAD in CONTACT, OPPORTUNITY and ACCOUNT");
-//        System.out.println(" CLOSE-WON <ACCOUNT Id Number>      Changes the selected ACCOUNT status to CLOSE-WON");
-//        System.out.println(" CLOSE-LOST <ACCOUNT Id Number>     Changes the selected ACCOUNT status to CLOSE-LOST");
-//        System.out.println(" OPEN <ACCOUNT Id Number>           Changes the selected ACCOUNT status to OPEN");
-//        System.out.println(" HELP                               Displays this help info");
-//        System.out.println(" EXIT                               Terminates the cleanCRM program");
-//        System.out.println("\n      Object Types available:");
-//        System.out.println(" LEAD\n CONTACT" +
-//                "\n OPPORTUNITY\n ACCOUNT\n");
-//        System.out.println("All Object types accepted in plural (e.g OPPORTUNITY and OPPORTUNITIES are " +
-//                "both accepted forms)");
-//        System.out.println("\nAll commands and object types are case-insensitive\n\n");
+
         System.out.println("\n              Possible Commands:\n " );
-        System.out.println(Style.LIGHT_PURPLE + " NEW <Object type>                  " + Style.LIGHT_GRAY + "Creates a new Object");
-        System.out.println(Style.LIGHT_PURPLE + " SHOW <Object type>                 " + Style.LIGHT_GRAY + "Lists all Objects of the selected type");
-        System.out.println(Style.LIGHT_PURPLE + " LOOKUP <Object type> <Id Number>   " + Style.LIGHT_GRAY + "Display the selected Object type with the indicated Id Number");
-        System.out.println(Style.LIGHT_PURPLE + " CONVERT <LEAD Id number>           " + Style.LIGHT_GRAY + "Converts the selected LEAD in CONTACT, OPPORTUNITY and ACCOUNT");
+        System.out.println(Style.LIGHT_PURPLE + " NEW <Object type>                      " + Style.LIGHT_GRAY + "Creates a new Object");
+        System.out.println(Style.LIGHT_PURPLE + " SHOW <Object type>                     " + Style.LIGHT_GRAY + "Lists all Objects of the selected type");
+        System.out.println(Style.LIGHT_PURPLE + " LOOKUP <Object type> <Id Number>       " + Style.LIGHT_GRAY + "Display the selected Object type with the indicated Id Number");
+        System.out.println(Style.LIGHT_PURPLE + " CONVERT <LEAD Id number>               " + Style.LIGHT_GRAY + "Converts the selected LEAD in CONTACT, OPPORTUNITY and ACCOUNT");
         System.out.println(Style.LIGHT_PURPLE + " CLOSE-WON <OPPORTUNITY Id Number>      " + Style.LIGHT_GRAY + "Changes the selected OPPORTUNITY status to CLOSE-WON");
         System.out.println(Style.LIGHT_PURPLE + " CLOSE-LOST <OPPORTUNITY Id Number>     " + Style.LIGHT_GRAY + "Changes the selected OPPORTUNITY status to CLOSE-LOST");
         System.out.println(Style.LIGHT_PURPLE + " OPEN <OPPORTUNITY Id Number>           " + Style.LIGHT_GRAY + "Changes the selected OPPORTUNITY status to OPEN");
-        System.out.println(Style.LIGHT_PURPLE + " SAVE                               " + Style.LIGHT_GRAY + "Saves data to files");
-        System.out.println(Style.LIGHT_PURPLE + " HELP                               " + Style.LIGHT_GRAY + "Displays this help info");
-        System.out.println(Style.LIGHT_PURPLE + " EXIT                               " + Style.LIGHT_GRAY + "Terminates the cleanCRM program" + Style.DEFAULT);
+        System.out.println(Style.LIGHT_PURPLE + " POPULATE                               " + Style.LIGHT_GRAY + "Populate the database with some sample data");
+        System.out.println(Style.LIGHT_PURPLE + " HELP                                   " + Style.LIGHT_GRAY + "Displays this help info");
+        System.out.println(Style.LIGHT_PURPLE + " EXIT                                   " + Style.LIGHT_GRAY + "Terminates the cleanCRM program" + Style.DEFAULT);
         System.out.println("\n\n             Object Types Available:\n ");
-        System.out.println(Style.LIGHT_PURPLE + " LEAD\n CONTACT\n OPPORTUNITY\n ACCOUNT\n");
-        System.out.println(Style.LIGHT_GRAY + "\n*All Object types accepted in plural (e.g OPPORTUNITY and OPPORTUNITIES are both accepted forms) according to context");
+        System.out.println(Style.LIGHT_PURPLE + " LEAD / CONTACT / OPPORTUNITY / ACCOUNT / SALESREP\n");
+        System.out.println(Style.LIGHT_GRAY + "*All Object types accepted in plural (e.g. OPPORTUNITY and OPPORTUNITIES are both accepted forms)");
         System.out.println("*All commands are case-insensitive\n" + Style.DEFAULT);
     }
-    
-    
+
 }

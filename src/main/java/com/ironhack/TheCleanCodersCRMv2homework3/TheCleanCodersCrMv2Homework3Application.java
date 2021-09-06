@@ -1,48 +1,30 @@
 package com.ironhack.TheCleanCodersCRMv2homework3;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.dao.*;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
-import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
+import com.ironhack.TheCleanCodersCRMv2homework3.main.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
+@EnableJpaRepositories
 public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunner {
-	@Autowired
-	private SalesRepRepository salesRepRepository;
-	@Autowired
-	private LeadRepository leadRepository;
-	@Autowired
-	private ContactRepository contactRepository;
-	@Autowired
-	private OpportunityRepository opportunityRepository;
-	@Autowired
-	private AccountRepository accountRepository;
 
-	private List<SalesRep> salesRepList;
-	private List<Lead> leadList;
-	private List<Contact> contactList;
-	private List<Opportunity> opportunityList;
-	private List<Account> accountList;
-
+	@Autowired
+	Main main;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TheCleanCodersCrMv2Homework3Application.class, args);
-
 	}
 
 	@Override
-	public void run(String... args) {
+	public void run(String... args) throws InterruptedException {
 
+		main.consoleRun();
 
-		System.out.println("\nLeads by SalesRep");
+/*		System.out.println("\nLeads by SalesRep");
 		for (String[] a : salesRepRepository.reportLeadsBySalesRep()) {
 			System.out.println(Arrays.toString(a));
 		}
@@ -118,8 +100,7 @@ public class TheCleanCodersCrMv2Homework3Application implements CommandLineRunne
 		System.out.println("\nMin Opportunities Per Account:");
 		System.out.println(opportunityRepository.minOppsPerAccount());
 
-
-
+*/
 
 	}
 }

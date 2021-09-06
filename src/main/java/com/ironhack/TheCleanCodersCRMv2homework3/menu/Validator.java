@@ -23,10 +23,18 @@ public class Validator {
     }
 
     public static boolean isStringValid(String string) {
-        if(string.length() > 1 && string.length() < 35 && string.replaceAll("\\s+","").matches("[áéíóúàèìòùäëïöüãẽõçłña-zÁÉÍÓÚÀÈÌÒÙÄËÏÖÜÃẼÕÇŁÑA-Z0-9]+")){
+        if(string.length() > 1 && string.length() < 35 && string.replaceAll("\\s+","").matches("[.áéíóúàèìòùäëïöüãẽõçłña-zÁÉÍÓÚÀÈÌÒÙÄËÏÖÜÃẼÕÇŁÑA-Z]+")){
             return true;
         } else {
             throw new IllegalArgumentException("Not a valid input.");
+        }
+    }
+
+    public static boolean isAnswerYesOrNoValid(String string) {
+        if(string.length() > 0 && string.length() < 4 && string.replaceAll("\\s+","").matches("[YESNO]+")){
+            return true;
+        } else {
+            throw new IllegalArgumentException("Invalid response.");
         }
     }
 

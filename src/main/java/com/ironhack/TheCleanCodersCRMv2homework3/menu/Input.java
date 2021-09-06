@@ -1,13 +1,15 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
+import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class Input {
     private Scanner scanner = new Scanner(System.in);
     private Printer printer;
@@ -32,7 +34,7 @@ public class Input {
     public int getIntegerHigherThanZero() {
         int intValue = -1;
         do {
-            System.out.println("Please input Integer higher than 0");
+            System.out.println(Style.LIGHT_GRAY + "Please input Integer higher than 0" + Style.DEFAULT);
             String input = scanner.next();
             try {
                 intValue = Integer.parseInt(input);
@@ -45,11 +47,32 @@ public class Input {
         return intValue;
     }
 
+    // Method to call when a yes or no question is encountered
+    public String getYesOrNo(){
+        String answer = "";
+        boolean error = false;
+
+        do {
+            String input = scanner.next();
+
+            try {
+                answer = input.toUpperCase();
+                error = Validator.isAnswerYesOrNoValid(answer);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid response.");
+            }
+
+        } while (!error);
+
+        scanner.nextLine();
+        return answer;
+    }
+
     public void close() {
         scanner.close();
     }
 
-    // method to convert case insensitive string to Command Enum
+    // Method to convert case insensitive string to Command Enum
     public Command getCommandFromString(String string) {
         string = string.toUpperCase();
         for (Command command : Command.values()) {
@@ -60,22 +83,13 @@ public class Input {
         return null;
     }
 
-    // method to convert case insensitive string (in singular form) to ObjectTypes Enum
-    public ObjectType getObjectTypeFromStringSingular(String string) {
+    // Method to convert case insensitive string (in singular form) to ObjectTypes Enum
+    public ObjectType getObjectType(String string) {
         string = string.toUpperCase();
         for (ObjectType objectType : ObjectType.values()) {
             if (string.equals(objectType.getSingularForm())) {
                 return objectType;
-            }
-        }
-        return null;
-    }
-
-    // method to convert case insensitive string (in plural form) to ObjectTypes Enum
-    public ObjectType getObjectTypeFromStringPlural(String string) {
-        string = string.toUpperCase();
-        for (ObjectType objectType : ObjectType.values()) {
-            if (string.equals(objectType.getPluralForm())) {
+            } else if (string.equals(objectType.getPluralForm())) {
                 return objectType;
             }
         }
@@ -83,12 +97,12 @@ public class Input {
     }
 
     public Industry chooseIndustry() {
-        System.out.println("\nType of Industry:" +
-                "\n1 - Produce" +
-                "\n2 - E-Commerce" +
-                "\n3 - Manufacturing" +
-                "\n4 - Medical" +
-                "\n5 - Other");
+        System.out.println(
+                "1 - Produce\n" +
+                "2 - E-Commerce\n" +
+                "3 - Manufacturing\n" +
+                "4 - Medical\n" +
+                "5 - Other");
         int input;
         do {
             input = getIntegerHigherThanZero();
@@ -108,7 +122,7 @@ public class Input {
     }
 
     public Product chooseProduct() {
-        System.out.println("\nType of Product:\n" +
+        System.out.println(
                 "1 - HYBRID\n" +
                 "2 - FLATBED\n" +
                 "3 - BOX");

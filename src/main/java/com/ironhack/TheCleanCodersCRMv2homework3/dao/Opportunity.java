@@ -46,14 +46,21 @@ public class Opportunity {
 
     //Constructor
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep) {
+    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep, Account account) {
         setProduct(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
         setStatus(Status.OPEN);
         setSalesRep(salesRep);
+        setAccount(account);
     }
 
+    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep) {
+        setProduct(product);
+        setQuantity(quantity);
+        setDecisionMaker(decisionMaker);
+        setStatus(Status.OPEN);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -64,6 +71,16 @@ public class Opportunity {
                 && product == that.product
                 && Objects.equals(decisionMaker, that.decisionMaker)
                 && status == that.status;
+    }
+
+    @Override
+    public String toString() {
+        return "=== Opportunity " + getId() + " ===" + '\n' +
+                "· product : " + product + '\n' +
+                "· quantity : " + quantity + '\n' +
+                "· decision maker : " + decisionMaker.getName() + " - " + decisionMaker.getCompanyName() + '\n' +
+                "· associate sales rep : " + salesRep.getName() + '\n' +
+                "· status : " + status + '\n';
     }
 
     public String getOpportunityInfo() {

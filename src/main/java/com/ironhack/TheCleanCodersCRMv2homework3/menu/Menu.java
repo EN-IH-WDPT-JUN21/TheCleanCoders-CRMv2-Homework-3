@@ -1,26 +1,50 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-
-
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Account;
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Lead;
+import com.ironhack.TheCleanCodersCRMv2homework3.dao.Opportunity;
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
 import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
 import com.ironhack.TheCleanCodersCRMv2homework3.io.FileManager;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
+@Component
 public class Menu {
-    private final Printer printer = new Printer();
-    private final Input input = new Input(printer);
-    private final Creator creator = new Creator(input, printer);
-    private final FileManager fileManager = new FileManager(printer);
 
-    public Menu() {
-        fileManager.importData();
+    final AccountRepository accountRepository;
+    final SalesRepRepository salesRepRepository;
+    final ContactRepository contactRepository;
+    final LeadRepository leadRepository;
+    final OpportunityRepository opportunityRepository;
+
+    @Autowired
+    Data data;
+    @Autowired
+    Creator creator;
+
+    @Autowired
+    public Menu(AccountRepository accountRepository, SalesRepRepository salesRepRepository, ContactRepository contactRepository, LeadRepository leadRepository, OpportunityRepository opportunityRepository) {
+        this.accountRepository = accountRepository;
+        this.salesRepRepository = salesRepRepository;
+        this.contactRepository = contactRepository;
+        this.leadRepository = leadRepository;
+        this.opportunityRepository = opportunityRepository;
     }
 
-    public void controlLoop() throws InterruptedException{
+    private final Printer printer = new Printer();
+    private final Input input = new Input(printer);
+//    private final FileManager fileManager = new FileManager(printer);
+
+
+    public void controlLoop() throws InterruptedException {
         Command command;
         do {
             String[] inputList = splitInput(input.getString());
@@ -39,25 +63,25 @@ public class Menu {
                 }
             }
         } while (command != Command.EXIT);
-        System.out.println("\nSaving all Objects...");
+        System.out.println(Style.LIGHT_GRAY + "\n\n\n\n\n\n\n\n\n\n\nAll data saved");
+        System.out.println(Style.OCHER + "Thank you for using the cleanCRM. Have a nice day.\n" + Style.DEFAULT);
         Thread.sleep(500);
-        System.out.println(Style.OCHER + "Thank you for using the cleanCRM. Have a nice day.");
         input.close();
-        fileManager.exportData();
     }
 
     public String[] splitInput(String string) {
         return string.trim().split(" ");
     }
 
-    public void interpretInput(String[] inputList) {
+    public void interpretInput(String[] inputList) throws InterruptedException {
+        creator = new Creator(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository, input, printer);
         Command command = input.getCommandFromString(inputList[0]);
         ObjectType objectType;
         int id;
 
         switch (command) {
             case NEW:
-                objectType = input.getObjectTypeFromStringSingular(inputList[1]);
+                objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
                     printer.printTypoInfo(inputList[1]);
                 } else {
@@ -65,7 +89,7 @@ public class Menu {
                 }
                 break;
             case SHOW:
-                objectType = input.getObjectTypeFromStringPlural(inputList[1]);
+                objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
                     printer.printTypoInfo(inputList[1]);
                 } else {
@@ -73,7 +97,7 @@ public class Menu {
                 }
                 break;
             case LOOKUP:
-                objectType = input.getObjectTypeFromStringSingular(inputList[1]);
+                objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
                     printer.printTypoInfo(inputList[1]);
                 } else {
@@ -93,16 +117,16 @@ public class Menu {
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.CLOSED_WON, id);
                 break;
+            case POPULATE:
+                data = new Data(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository);
+                data.populateRepos();
+                break;
             case OPEN:
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.OPEN, id);
                 break;
             case HELP:
                 printer.helpPage();
-                break;
-            case SAVE:
-                printer.print("All objects saved to .txt files.");
-                fileManager.exportData();
                 break;
         }
     }
@@ -121,23 +145,29 @@ public class Menu {
             case OPPORTUNITY:
                 creator.createOpportunity();
                 break;
+            case SALESREP:
+                creator.createSalesRep();
+                break;
         }
     }
 
     public void show(ObjectType objectType) {
-        System.out.println("Shows all " + objectType.getPluralForm() + ".\n");
+        System.out.println(Style.OCHER + "Shows all " + objectType.getPluralForm() + ".\n" + Style.DEFAULT);
         switch (objectType) {
             case ACCOUNT:
-                printer.printAllAccounts();
+                creator.printAllAccounts();
                 break;
             case CONTACT:
-                printer.printAllContacts();
+                creator.printAllContacts();
                 break;
             case LEAD:
-                printer.printAllLeads();
+                creator.printAllLeads();
                 break;
             case OPPORTUNITY:
-                printer.printAllOpportunities();
+                creator.printAllOpportunities();
+                break;
+            case SALESREP:
+                creator.printAllSalesRep();
                 break;
         }
     }
@@ -145,35 +175,83 @@ public class Menu {
     public void lookup(ObjectType objectType, int id) {
         switch (objectType) {
             case ACCOUNT:
-//                printer.print(Account.getById(id, Account.getAllAccounts()).toString());
+                System.out.println(creator.getAccountRepository().findById(Long.valueOf(id)).get());
                 break;
             case CONTACT:
-//                printer.print(Contact.getById(id, Contact.getAllContacts()).toString());
+                System.out.println(creator.getContactRepository().findById(Long.valueOf(id)).get());
                 break;
             case LEAD:
-//                printer.print(Lead.getById(id, Lead.getAllLeads()).toString());
+                System.out.println(creator.getLeadRepository().findById(Long.valueOf(id)).get());
                 break;
             case OPPORTUNITY:
-//                printer.print(Opportunity.getById(id, Opportunity.getAllOpportunities()).toString());
+                System.out.println(creator.getOpportunityRepository().findById(Long.valueOf(id)).get());
+                break;
+            case SALESREP:
+                System.out.println(creator.getSalesRepRepository().findById(Long.valueOf(id)).get());
                 break;
         }
     }
 
-    public void convert(int id) {
-        // When a Lead is converted, Contact, Opportunity and Account are automatically created
-        // and the Lead must be deleted.
-        System.out.println("\nConverting LEAD nº " + id + " to CONTACT, OPPORTUNITY and ACCOUNT\n");
-//        Lead lead = (Lead) Lead.getById(id, Lead.getAllLeads());
-//        creator.createContact(lead);
-//        creator.createOpportunityByLeadConversion();
-//        creator.createAccount(lead);
-//        Lead.removeItem(lead);
+    public void convert(int idLead) throws InterruptedException {
+        // When a Lead is converted a Contact, Opportunity and Account are automatically created and the Lead must be deleted.
+        Lead lead;
+        try{
+            lead = leadRepository.findById(Long.valueOf(idLead)).get();
+        } catch (NoSuchElementException e) {
+            System.out.println(Style.RED + "\nThe id entered does not correspond to any lead.");
+            System.out.println(Style.DEFAULT + "\nPlease, select another option.");
+            return;
+        }
+        System.out.println(Style.OCHER + "\nConverting LEAD nº " + idLead + " to CONTACT, ACCOUNT and OPPORTUNITY\n" + Style.DEFAULT);
+        Thread.sleep(500);
+        System.out.println(Style.OCHER + "\nWould you like to create a new Account? (Y/N)" + Style.DEFAULT);
+        while(true) {
+            String answer = input.getYesOrNo();
+            if (answer.equals("Y") || answer.equals("YES")) {
+                creator.createAccount();
+                Thread.sleep(1000);
+                System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
+                Thread.sleep(2100);
+                creator.createContact(lead);
+                Thread.sleep(2000);
+                creator.createOpportunityByLeadConversion(lead);
+                break;
+            } else if (answer.equals("N") || answer.equals("NO")) {
+                int idAccount = creator.getExistingAccount();
+                Account account = accountRepository.findById(Long.valueOf(idAccount)).get();
+                System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
+                Thread.sleep(2100);
+                creator.createContact(lead, account);
+                Thread.sleep(2000);
+                creator.createOpportunityByLeadConversion(lead, account);
+                break;
+            } else {
+                System.out.println("Invalid response.");
+            }
+        }
+
+        Thread.sleep(1400);
+        leadRepository.deleteById(Long.valueOf(idLead));
+        System.out.println(Style.OCHER + "\n\n\n..." + Style.DEFAULT);
+        Thread.sleep(1400);
+        System.out.println(Style.OCHER + "\n\n\nLead has been successfully converted and deleted.\n\n\n" + Style.DEFAULT);
     }
 
     public void changeStatus(Status status, int id) {
-        System.out.println("Changes OPPORTUNITY with an id of " + id + " status to " + status + ".");
-//        Opportunity opportunity = (Opportunity) Opportunity.getById(id, Opportunity.getAllOpportunities());
-//        opportunity.setStatus(status);
+        Opportunity opportunity;
 
+        try{
+            opportunity = opportunityRepository.findById(Long.valueOf(id)).get();
+        } catch (NoSuchElementException e){
+            System.out.println(Style.RED + "\nThe id entered does not correspond to any opportunity.");
+            System.out.println(Style.DEFAULT + "\nPlease, select another option.");
+            return;
+        }
+
+        opportunityRepository.findById(Long.valueOf(id));
+        opportunity.setStatus(status);
+        opportunityRepository.save(opportunity);
+        System.out.println(Style.OCHER + "OPPORTUNITY with an id of " + id + " changed to " + status +"." + Style.DEFAULT);
     }
+
 }
