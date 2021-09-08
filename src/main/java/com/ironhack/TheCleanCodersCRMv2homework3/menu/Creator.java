@@ -6,6 +6,7 @@ import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Validator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ public class Creator {
         this.input = input;
         this.printer = printer;
     }
+
+
+    // _NEW functionality methods_
 
     // Method used to create a SALES REP independently
     public void createSalesRep() {
@@ -128,8 +132,8 @@ public class Creator {
     // Method used to create a LEAD independently
     public void createLead() {
         // First it is checked if there is any Sales Rep as we need to associate one to our Lead.
-        if(salesRepRepository.count() == 0L){
-            System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Lead cannot be created." +  Style.DEFAULT);
+        if (salesRepRepository.count() == 0L) {
+            System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Lead cannot be created." + Style.DEFAULT);
             System.out.println("\nPlease, select another option.");
             return;
         } else {
@@ -218,12 +222,12 @@ public class Creator {
     // Method used to create a CONTACT independently
     public void createContact() {
         // First it is checked if there is any Lead and any Account as we need to associate one of each to our Contact.
-        if(leadRepository.count() == 0L){
-            System.out.println(Style.RED + "\nThere is no Lead saved in this database. A new Contact cannot be created." +  Style.DEFAULT);
+        if (leadRepository.count() == 0L) {
+            System.out.println(Style.RED + "\nThere is no Lead saved in this database. A new Contact cannot be created." + Style.DEFAULT);
             System.out.println("\nPlease, select another option.");
             return;
-        } else if(accountRepository.count() == 0L){
-            System.out.println(Style.RED + "\nThere is no Account saved in this database. A new Contact cannot be created." +  Style.DEFAULT);
+        } else if (accountRepository.count() == 0L) {
+            System.out.println(Style.RED + "\nThere is no Account saved in this database. A new Contact cannot be created." + Style.DEFAULT);
             System.out.println("\nPlease, select another option.");
             return;
         } else {
@@ -277,12 +281,12 @@ public class Creator {
     // Method used when an OPPORTUNITY is created independently
     public void createOpportunity() {
         // First it is checked if there is any Contact and Sales Rep as we need to associate one of each to our Opportunity.
-        if(contactRepository.count() == 0L){
-            System.out.println(Style.RED + "\nThere is no Contact saved in this database. A new Opportunity cannot be created." +  Style.DEFAULT);
+        if (contactRepository.count() == 0L) {
+            System.out.println(Style.RED + "\nThere is no Contact saved in this database. A new Opportunity cannot be created." + Style.DEFAULT);
             System.out.println("\nPlease, select another option.");
             return;
-        } else if(salesRepRepository.count() == 0L) {
-            System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Opportunity cannot be created." +  Style.DEFAULT);
+        } else if (salesRepRepository.count() == 0L) {
+            System.out.println(Style.RED + "\nThere is no Sales Rep saved in this database. A new Opportunity cannot be created." + Style.DEFAULT);
             System.out.println("\nPlease, select another option.");
             return;
         } else {
@@ -292,41 +296,60 @@ public class Creator {
 
         // Then, the user is asked for all the necessary info
 
+
         int idContact;
         boolean errorContact = false;
+        // Since decisionMaker and opportunity have a oneToOne relationship, it must be ensured that the contact exists
+        // and is not previously linked to any other opportunity.
         do {
 
-            System.out.println("\nCONTACT id:");
+            System.out.println("\nDECISION MAKER id:");
             idContact = input.getIntegerHigherThanZero();
 
-            try{
+            // Determine whether or not that contact exists in the database
+            try {
                 contactRepository.findById(Long.valueOf(idContact)).get();
-                errorContact = true;
-            } catch (NoSuchElementException e){
-                System.out.println(Style.RED + "\nThe id entered does not correspond to any contact.");
-                System.out.println(Style.DEFAULT + "\nPlease, try again.");
-            } catch (Exception e) {
-                System.out.println(Style.RED + "\nThe selected Contact has already an Opportunity.");
-                System.out.println(Style.DEFAULT +"\nWould you like to go back to the main menu? (Y/N)");
-                while(true) {
+
+                // Determine if the contact has been previously linked to another opportunity
+                try {
+                    Opportunity opportunity =
+                            opportunityRepository.findByDecisionMaker(contactRepository.findById(Long.valueOf(idContact)).get()).get();
+                    if(opportunity != null) {
+                        System.out.println(Style.RED + "\nThis decision maker is already linked to an Opportunity." + Style.DEFAULT);
+                    }
+                } catch (NoSuchElementException e) {
+                    errorContact = true;
+                }
+
+            } catch (NoSuchElementException e) {
+                System.out.println(Style.RED + "\nThe id entered does not correspond to any contact."  + Style.DEFAULT);
+            }
+
+            // Ask if the user wants to come back to the main menu
+            if(!errorContact) {
+                System.out.println(Style.DEFAULT + "\nWould you like to go back to the main menu? (Y/N)");
+                while (true) {
                     String answer = input.getYesOrNo();
-                    if(answer.equals("Y") || answer.equals("YES")){
+                    if (answer.equals("Y") || answer.equals("YES")) {
                         System.out.println("\nPlease, select other option.");
                         return;
-                    } else if (answer.equals("N") || answer.equals("NO")){
+                    } else if (answer.equals("N") || answer.equals("NO")) {
                         break;
                     } else {
-                        System.out.println(Style.LIGHT_GRAY +"Invalid answer." + Style.DEFAULT);
+                        System.out.println(Style.LIGHT_GRAY + "Invalid answer." + Style.DEFAULT);
                     }
                 }
             }
 
-        } while(!errorContact);
+        } while (!errorContact);
+
 
         int idSalesRep = getExistingSalesRep();
 
+
         System.out.println("\nChoose the product");
         Product product = input.chooseProduct();
+
 
         System.out.println("\nQuantity of trucks:");
         int quantity = input.getIntegerHigherThanZero();
@@ -337,7 +360,7 @@ public class Creator {
         opportunityRepository.save(opportunity);
 
         // Print an OPPORTUNITY creation message
-        System.out.println("\nA new OPPORTUNITY has been created with the following info:");
+        System.out.println(Style.OCHER + "\nA new OPPORTUNITY has been created with the following info:" + Style.DEFAULT);
         System.out.println(opportunity);
     }
 
@@ -396,35 +419,8 @@ public class Creator {
         System.out.println(opportunity);
     }
 
-    public void printAllAccounts() {
-        for(Account account : accountRepository.findAll()){
-            System.out.println(account);
-        }
-    }
 
-    public void printAllContacts() {
-        for(Contact contact : contactRepository.findAll()){
-            System.out.println(contact);
-        }
-    }
-
-    public void printAllLeads() {
-        for(Lead lead : leadRepository.findAll()){
-            System.out.println(lead);
-        }
-    }
-
-    public void printAllOpportunities() {
-        for(Opportunity opportunity : opportunityRepository.findAll()){
-            System.out.println(opportunity);
-        }
-    }
-
-    public void printAllSalesRep() {
-        for(SalesRep salesRep : salesRepRepository.findAll()){
-            System.out.println(salesRep);
-        }
-    }
+    // Utility methods
 
     // Requests an ACCOUNT id and validates whether or not it exists in the database
     public int getExistingAccount() {
@@ -436,15 +432,15 @@ public class Creator {
             System.out.println("\nACCOUNT id:");
             idAccount = input.getIntegerHigherThanZero();
 
-            try{
+            try {
                 accountRepository.findById(Long.valueOf(idAccount)).get();
                 errorAccount = true;
-            } catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println(Style.RED + "\nThe id entered does not correspond to any account.");
                 System.out.println(Style.DEFAULT + "\nPlease, try again.");
             }
 
-        } while(!errorAccount);
+        } while (!errorAccount);
 
         return idAccount;
 
@@ -459,15 +455,15 @@ public class Creator {
             System.out.println("\nLEAD id:");
             idLead = input.getIntegerHigherThanZero();
 
-            try{
+            try {
                 leadRepository.findById(Long.valueOf(idLead)).get();
                 errorLead = true;
-            } catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println(Style.RED + "\nThe id entered does not correspond to any lead.");
                 System.out.println(Style.DEFAULT + "\nPlease, try again.");
             }
 
-        } while(!errorLead);
+        } while (!errorLead);
 
         return idLead;
 
@@ -483,18 +479,51 @@ public class Creator {
             System.out.println("\nSALES REP id:");
             idSalesRep = input.getIntegerHigherThanZero();
 
-            try{
+            try {
                 salesRepRepository.findById(Long.valueOf(idSalesRep)).get();
                 errorSRep = true;
-            } catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println(Style.RED + "\nThe id entered does not correspond to any sales rep.");
                 System.out.println(Style.DEFAULT + "\nPlease, try again.");
             }
 
-        } while(!errorSRep);
+        } while (!errorSRep);
 
         return idSalesRep;
 
+    }
+
+
+    // _SHOW functionality methods_
+
+    public void printAllAccounts() {
+        for (Account account : accountRepository.findAll()) {
+            System.out.println(account);
+        }
+    }
+
+    public void printAllContacts() {
+        for (Contact contact : contactRepository.findAll()) {
+            System.out.println(contact);
+        }
+    }
+
+    public void printAllLeads() {
+        for (Lead lead : leadRepository.findAll()) {
+            System.out.println(lead);
+        }
+    }
+
+    public void printAllOpportunities() {
+        for (Opportunity opportunity : opportunityRepository.findAll()) {
+            System.out.println(opportunity);
+        }
+    }
+
+    public void printAllSalesRep() {
+        for (SalesRep salesRep : salesRepRepository.findAll()) {
+            System.out.println(salesRep);
+        }
     }
 
 }

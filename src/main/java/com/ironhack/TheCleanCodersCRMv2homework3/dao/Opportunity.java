@@ -55,13 +55,6 @@ public class Opportunity {
         setAccount(account);
     }
 
-    public Opportunity(Product product, int quantity, Contact decisionMaker, SalesRep salesRep) {
-        setProduct(product);
-        setQuantity(quantity);
-        setDecisionMaker(decisionMaker);
-        setStatus(Status.OPEN);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,10 +74,6 @@ public class Opportunity {
                 "· decision maker : " + decisionMaker.getName() + " - " + decisionMaker.getCompanyName() + '\n' +
                 "· associate sales rep : " + salesRep.getName() + '\n' +
                 "· status : " + status + '\n';
-    }
-
-    public String getOpportunityInfo() {
-        return "Product: " + this.product + ". Quantity: " + this.quantity + ". STATUS: " + this.status;
     }
 
 }

@@ -3,11 +3,8 @@ package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 import com.ironhack.TheCleanCodersCRMv2homework3.dao.Account;
 import com.ironhack.TheCleanCodersCRMv2homework3.dao.Lead;
 import com.ironhack.TheCleanCodersCRMv2homework3.dao.Opportunity;
+import com.ironhack.TheCleanCodersCRMv2homework3.enums.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Status;
-import com.ironhack.TheCleanCodersCRMv2homework3.io.FileManager;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +106,19 @@ public class Menu {
                 id = Integer.parseInt(inputList[1]);
                 convert(id);
                 break;
+            case REPORT:
+                ReportTarget reportTarget = input.getReportTarget(inputList[1]);
+                ReportBy reportBy = input.getReportBy(inputList[3]);
+                if (Objects.isNull(reportTarget)) {
+                    printer.printTypoInfo(inputList[1]);
+                } else if(Objects.isNull(reportBy)) {
+                    printer.printTypoInfo(inputList[3]);
+                } else if(inputList[2].equalsIgnoreCase("by")) {
+                    report(reportTarget, reportBy);
+                } else {
+                    printer.print("Incorrect command structure. Please try again.");
+                }
+                break;
             case CLOSE_LOST:
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.CLOSED_LOST, id);
@@ -117,13 +127,24 @@ public class Menu {
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.CLOSED_WON, id);
                 break;
-            case POPULATE:
-                data = new Data(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository);
-                data.populateRepos();
-                break;
             case OPEN:
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.OPEN, id);
+                break;
+            case MEAN:
+            case MEDIAN:
+            case MIN:
+            case MAX:
+                StateObject stateObject = input.getStateObject(inputList[1]);
+                if (Objects.isNull(stateObject)) {
+                    printer.printTypoInfo(inputList[1]);
+                } else {
+                    reportStates(command, stateObject);
+                }
+                break;
+            case POPULATE:
+                data = new Data(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository);
+                data.populateRepos();
                 break;
             case HELP:
                 printer.helpPage();
@@ -152,7 +173,7 @@ public class Menu {
     }
 
     public void show(ObjectType objectType) {
-        System.out.println(Style.OCHER + "Shows all " + objectType.getPluralForm() + ".\n" + Style.DEFAULT);
+        System.out.println(Style.OCHER + "\nShows all " + objectType.getPluralForm() + ".\n" + Style.DEFAULT);
         switch (objectType) {
             case ACCOUNT:
                 creator.printAllAccounts();
@@ -251,7 +272,158 @@ public class Menu {
         opportunityRepository.findById(Long.valueOf(id));
         opportunity.setStatus(status);
         opportunityRepository.save(opportunity);
-        System.out.println(Style.OCHER + "OPPORTUNITY with an id of " + id + " changed to " + status +"." + Style.DEFAULT);
+        System.out.println(Style.OCHER + "OPPORTUNITY with an id of " + id + " changed to " + status +".\n" + Style.DEFAULT);
+    }
+
+    public void report(ReportTarget reportTarget, ReportBy reportBy) {
+        System.out.println(Style.OCHER + "\n" + reportTarget + " BY " + reportBy + Style.DEFAULT);
+
+        switch (reportBy) {
+            case SALESREP:
+                switch (reportTarget) {
+                    case LEAD:
+                        printer.printReport(salesRepRepository.reportLeadsBySalesRep());
+                        break;
+                    case OPPORTUNITY:
+                        printer.printReport(salesRepRepository.reportOpportunitiesBySalesRep());
+                        break;
+                    case CLOSED_WON:
+                        printer.printReport(salesRepRepository.reportClosedWonOpportunitiesBySalesRep());
+                        break;
+                    case CLOSED_LOST:
+                        printer.printReport(salesRepRepository.reportClosedLostOpportunitiesBySalesRep());
+                        break;
+                    case OPEN:
+                        printer.printReport(salesRepRepository.reportOpenOpportunitiesBySalesRep());
+                        break;
+                }
+            break;
+            case PRODUCT:
+                switch (reportTarget) {
+                    case OPPORTUNITY:
+                        printer.printReport(opportunityRepository.reportOpportunityByProduct());
+                        break;
+                    case CLOSED_WON:
+                        printer.printReport(opportunityRepository.reportClosedWonOpportunityByProduct());
+                        break;
+                    case CLOSED_LOST:
+                        printer.printReport(opportunityRepository.reportClosedLostOpportunityByProduct());
+                        break;
+                    case OPEN:
+                        printer.printReport(opportunityRepository.reportOpenOpportunityByProduct());
+                        break;
+                }
+            break;
+            case COUNTRY:
+                switch (reportTarget) {
+                    case OPPORTUNITY:
+                        printer.printReport(opportunityRepository.reportOpportunitiesByCountry());
+                        break;
+                    case CLOSED_WON:
+                        printer.printReport(opportunityRepository.reportClosedWonOpportunitiesByCountry());
+                        break;
+                    case CLOSED_LOST:
+                        printer.printReport(opportunityRepository.reportClosedLostOpportunitiesByCountry());
+                        break;
+                    case OPEN:
+                        printer.printReport(opportunityRepository.reportOpenOpportunitiesByCountry());
+                        break;
+                }
+            break;
+            case CITY:
+                switch (reportTarget) {
+                    case OPPORTUNITY:
+                        printer.printReport(opportunityRepository.reportOpportunitiesByCity());
+                        break;
+                    case CLOSED_WON:
+                        printer.printReport(opportunityRepository.reportClosedWonOpportunitiesByCity());
+                        break;
+                    case CLOSED_LOST:
+                        printer.printReport(opportunityRepository.reportClosedLostOpportunitiesByCity());
+                        break;
+                    case OPEN:
+                        printer.printReport(opportunityRepository.reportOpenOpportunitiesByCity());
+                        break;
+                }
+            break;
+            case INDUSTRY:
+                switch (reportTarget) {
+                    case OPPORTUNITY:
+                        printer.printReport(opportunityRepository.reportOpportunitiesByIndustry());
+                        break;
+                    case CLOSED_WON:
+                        printer.printReport(opportunityRepository.reportClosedWonOpportunitiesByIndustry());
+                        break;
+                    case CLOSED_LOST:
+                        printer.printReport(opportunityRepository.reportClosedLostOpportunitiesByIndustry());
+                        break;
+                    case OPEN:
+                        printer.printReport(opportunityRepository.reportOpenOpportunitiesByIndustry());
+                        break;
+                }
+            break;
+            }
+        System.out.println("\n");
+    }
+
+    public void reportStates(Command command, StateObject stateObject) {
+
+        switch (stateObject) {
+            case EMPLOYEECOUNT:
+                System.out.println(Style.OCHER + "\n" + command + " " + stateObject + Style.DEFAULT);
+                switch (command) {
+                    case MEAN:
+                        System.out.println(accountRepository.meanEmployeeCount());
+                        break;
+                    case MEDIAN:
+                        System.out.println(accountRepository.medianEmployeeCount());
+                        break;
+                    case MAX:
+                        System.out.println(accountRepository.maxEmployeeCount());
+                        break;
+                    case MIN:
+                        System.out.println(accountRepository.minEmployeeCount());
+                        break;
+                }
+            break;
+            case QUANTITY:
+                System.out.println(Style.OCHER + "\n" + command + " " + stateObject + " of products order" + Style.DEFAULT);
+                switch (command) {
+                    case MEAN:
+                        System.out.println(opportunityRepository.meanQuantity());
+                        break;
+                    case MEDIAN:
+                        System.out.println(opportunityRepository.medianQuantity());
+                        break;
+                    case MAX:
+                        System.out.println(opportunityRepository.maxQuantity());
+                        break;
+                    case MIN:
+                        System.out.println(opportunityRepository.minQuantity());
+                        break;
+
+                }
+            break;
+            case OPPORTUNITY:
+                System.out.println(Style.OCHER + "\n" + command + " number of " + stateObject.getPluralForm()
+                        + " associated with an ACCOUNT" + Style.DEFAULT);
+                switch (command) {
+                    case MEAN:
+                        System.out.println(opportunityRepository.meanOppsPerAccount());
+                        break;
+                    case MEDIAN:
+                        System.out.println(opportunityRepository.medianOppsPerAccount());
+                        break;
+                    case MAX:
+                        System.out.println(opportunityRepository.maxOppsPerAccount());
+                        break;
+                    case MIN:
+                        System.out.println(opportunityRepository.minOppsPerAccount());
+                        break;
+                }
+            break;
+        }
+        System.out.println("\n");
     }
 
 }

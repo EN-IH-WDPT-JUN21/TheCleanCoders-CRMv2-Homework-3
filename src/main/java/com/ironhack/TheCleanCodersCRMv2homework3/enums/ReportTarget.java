@@ -4,17 +4,17 @@ import lombok.Getter;
 
 @Getter
 
-public enum ObjectType {
-    ACCOUNT("ACCOUNT", "ACCOUNTS"),
-    CONTACT("CONTACT", "CONTACTS"),
+public enum ReportTarget {
     LEAD("LEAD", "LEADS"),
     OPPORTUNITY("OPPORTUNITY", "OPPORTUNITIES"),
-    SALESREP("SALESREP", "SALESREPS");
+    CLOSED_WON("CLOSED-WON", "CLOSED-WONS"),
+    CLOSED_LOST("CLOSED-LOST", "CLOSED-LOSTS"),
+    OPEN("OPEN", "OPENS");
 
     private String singularForm;
     private String pluralForm;
 
-    ObjectType(String singularForm, String pluralForm) {
+    ReportTarget(String singularForm, String pluralForm) {
         this.singularForm = singularForm;
         this.pluralForm = pluralForm;
     }

@@ -8,6 +8,11 @@ public enum Command {
     CLOSE_LOST("CLOSE-LOST"),
     CLOSE_WON("CLOSE-WON"),
     OPEN("OPEN"),
+    REPORT("REPORT"),
+    MEAN("MEAN"),
+    MEDIAN("MEDIAN"),
+    MAX("MAX"),
+    MIN("MIN"),
     POPULATE("POPULATE"),
     EXIT("EXIT"),
     HELP("HELP");
