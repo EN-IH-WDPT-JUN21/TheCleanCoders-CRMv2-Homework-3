@@ -79,5 +79,15 @@ public class Data {
 
 		System.out.println(Style.OCHER + "\nDATA SUCCESSFULLY IMPLEMENTED\n" + Style.DEFAULT);
     }
+
+    public void cleanAllTables(){
+		accountRepository.deleteAll();
+		contactRepository.deleteAll();
+		opportunityRepository.deleteAll();
+		leadRepository.deleteAll();
+		salesRepRepository.deleteAll();
+
+		System.out.println(Style.OCHER + "\nDATA SUCCESSFULLY DELETED\n" + Style.DEFAULT);
+	}
 }
 
