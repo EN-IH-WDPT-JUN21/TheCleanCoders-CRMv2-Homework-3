@@ -1,10 +1,8 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
+import com.ironhack.TheCleanCodersCRMv2homework3.enums.*;
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Validator;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -21,14 +19,6 @@ public class Input {
     public String getString() {
         System.out.print(">");
         return scanner.nextLine();
-    }
-
-    public int getInt() {
-        try {
-            return scanner.nextInt();
-        } finally {
-            scanner.nextLine();
-        }
     }
 
     public int getIntegerHigherThanZero() {
@@ -83,7 +73,7 @@ public class Input {
         return null;
     }
 
-    // Method to convert case insensitive string (in singular form) to ObjectTypes Enum
+    // Method to convert case insensitive string (accepted in singular or plural form) to ObjectTypes Enum
     public ObjectType getObjectType(String string) {
         string = string.toUpperCase();
         for (ObjectType objectType : ObjectType.values()) {
@@ -91,6 +81,45 @@ public class Input {
                 return objectType;
             } else if (string.equals(objectType.getPluralForm())) {
                 return objectType;
+            }
+        }
+        return null;
+    }
+
+    // Method to convert case insensitive string (accepted in singular or plural form) to ReportBy Enum
+    public ReportBy getReportBy(String string) {
+        string = string.toUpperCase();
+        for (ReportBy reportBy : ReportBy.values()) {
+            if (string.equals(reportBy.getSingularForm())) {
+                return reportBy;
+            } else if (string.equals(reportBy.getPluralForm())) {
+                return reportBy;
+            }
+        }
+        return null;
+    }
+
+    // Method to convert case insensitive string (accepted in singular or plural form) to StateObject Enum
+    public StateObject getStateObject(String string) {
+        string = string.toUpperCase();
+        for (StateObject stateObject : StateObject.values()) {
+            if (string.equals(stateObject.getSingularForm())) {
+                return stateObject;
+            } else if(string.equals(stateObject.getPluralForm())) {
+                return stateObject;
+            }
+        }
+        return null;
+    }
+
+    // Method to convert case insensitive string (accepted in singular or plural form) to ReportTarget Enum
+    public ReportTarget getReportTarget(String string) {
+        string = string.toUpperCase();
+        for (ReportTarget reportTarget : ReportTarget.values()) {
+            if (string.equals(reportTarget.getSingularForm())) {
+                return reportTarget;
+            } else if (string.equals(reportTarget.getPluralForm())) {
+                return reportTarget;
             }
         }
         return null;

@@ -1,4 +1,4 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.menu;
+package com.ironhack.TheCleanCodersCRMv2homework3.utils;
 
 import org.apache.commons.validator.routines.EmailValidator;
 

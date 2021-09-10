@@ -1,12 +1,10 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.dao;
 
 import com.ironhack.TheCleanCodersCRMv2homework3.output.Style;
-import com.ironhack.TheCleanCodersCRMv2homework3.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
