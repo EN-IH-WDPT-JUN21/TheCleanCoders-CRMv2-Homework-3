@@ -1,16 +1,21 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.repository;
 
+import com.ironhack.TheCleanCodersCRMv2homework3.TheCleanCodersCrMv2Homework3Application;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class AccountRepositoryTest {
+
+    @MockBean
+    private TheCleanCodersCrMv2Homework3Application theCleanCodersCrMv2Homework3Application;
 
     @Autowired
     private Data data;
@@ -51,4 +56,5 @@ class AccountRepositoryTest {
         int result = accountRepository.minEmployeeCount();
         assertEquals(12,result);
     }
+
 }

@@ -58,7 +58,7 @@ public class Data {
 				new Contact("Katarzyna", "2468101214", "catKat@ironhack.es", "theCleanCodersPoland", accountList.get(1)),
 				new Contact("Natalia", "314152878", "natalia@ironhack.es", "theCleanCoders Ltd", accountList.get(2)),
 				new Contact("Vitaliano", "2112345678", "vitaliano@ironhack.es", "theCleanCoders Lda", accountList.get(3)),
-				new Contact("Joao Lopes", "351962458752", "meumail@meuservidor.pt", "cleanDevelopers", accountList.get(4))
+				new Contact("Joao Lopes", "351962458752", "joao@ironhack.es", "theCleanDevelopers", accountList.get(4))
 		));
 
 		leadList = leadRepository.saveAll(List.of(

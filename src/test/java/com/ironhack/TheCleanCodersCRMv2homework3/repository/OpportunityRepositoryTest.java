@@ -1,24 +1,27 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.repository;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.dao.*;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Product;
+import com.ironhack.TheCleanCodersCRMv2homework3.TheCleanCodersCrMv2Homework3Application;
 import com.ironhack.TheCleanCodersCRMv2homework3.utils.Data;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class OpportunityRepositoryTest {
 
+    @MockBean
+    private TheCleanCodersCrMv2Homework3Application theCleanCodersCrMv2Homework3Application;
+
     @Autowired
     private Data data;
 
-    @Autowired
+    @Mock
     private OpportunityRepository opportunityRepository;
 
     @BeforeEach
@@ -42,21 +45,21 @@ class OpportunityRepositoryTest {
 
     @Test
     void reportOpportunityClosedWonByProduct() {
-        String[][] result = opportunityRepository.reportOpportunityClosedWonByProduct();
+        String[][] result = opportunityRepository.reportClosedWonOpportunityByProduct();
 
         assertEquals(0, result.length);
     }
 
     @Test
     void reportOpportunityClosedLostByProduct() {
-        String[][] result = opportunityRepository.reportOpportunityClosedLostByProduct();
+        String[][] result = opportunityRepository.reportClosedLostOpportunityByProduct();
 
         assertEquals(0, result.length);
     }
 
     @Test
     void reportOpportunityOpenByProduct() {
-        String[][] result = opportunityRepository.reportOpportunityOpenByProduct();
+        String[][] result = opportunityRepository.reportOpenOpportunityByProduct();
 
         assertEquals(3, result.length);
         assertEquals("2",result[0][1]);

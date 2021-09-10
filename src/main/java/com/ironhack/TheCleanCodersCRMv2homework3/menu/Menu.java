@@ -194,22 +194,28 @@ public class Menu {
     }
 
     public void lookup(ObjectType objectType, int id) {
-        switch (objectType) {
-            case ACCOUNT:
-                System.out.println(creator.getAccountRepository().findById(Long.valueOf(id)).get());
-                break;
-            case CONTACT:
-                System.out.println(creator.getContactRepository().findById(Long.valueOf(id)).get());
-                break;
-            case LEAD:
-                System.out.println(creator.getLeadRepository().findById(Long.valueOf(id)).get());
-                break;
-            case OPPORTUNITY:
-                System.out.println(creator.getOpportunityRepository().findById(Long.valueOf(id)).get());
-                break;
-            case SALESREP:
-                System.out.println(creator.getSalesRepRepository().findById(Long.valueOf(id)).get());
-                break;
+        try{
+            switch (objectType) {
+                case ACCOUNT:
+                        System.out.println(creator.getAccountRepository().findById(Long.valueOf(id)).get());
+                        break;
+                        case CONTACT:
+                            System.out.println(creator.getContactRepository().findById(Long.valueOf(id)).get());
+                            break;
+                        case LEAD:
+                            System.out.println(creator.getLeadRepository().findById(Long.valueOf(id)).get());
+                            break;
+                        case OPPORTUNITY:
+                            System.out.println(creator.getOpportunityRepository().findById(Long.valueOf(id)).get());
+                            break;
+                        case SALESREP:
+                            System.out.println(creator.getSalesRepRepository().findById(Long.valueOf(id)).get());
+                            break;
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println(Style.RED + "\nThe id entered does not correspond to any " + objectType.toString().toLowerCase() + ".");
+            System.out.println(Style.DEFAULT + "\nPlease, try again.");
+            return;
         }
     }
 
@@ -225,25 +231,25 @@ public class Menu {
         }
         System.out.println(Style.OCHER + "\nConverting LEAD nº " + idLead + " to CONTACT, ACCOUNT and OPPORTUNITY\n" + Style.DEFAULT);
         Thread.sleep(500);
-        System.out.println(Style.OCHER + "\nWould you like to create a new Account? (Y/N)" + Style.DEFAULT);
+        System.out.println("\nWould you like to create a new Account? (Y/N)");
         while(true) {
             String answer = input.getYesOrNo();
             if (answer.equals("Y") || answer.equals("YES")) {
                 creator.createAccount();
                 Thread.sleep(1000);
                 System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
-                Thread.sleep(2100);
-                creator.createContact(lead);
                 Thread.sleep(2000);
+                creator.createContact(lead);
+                Thread.sleep(1800);
                 creator.createOpportunityByLeadConversion(lead);
                 break;
             } else if (answer.equals("N") || answer.equals("NO")) {
                 int idAccount = creator.getExistingAccount();
                 Account account = accountRepository.findById(Long.valueOf(idAccount)).get();
                 System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
-                Thread.sleep(2100);
-                creator.createContact(lead, account);
                 Thread.sleep(2000);
+                creator.createContact(lead, account);
+                Thread.sleep(1800);
                 creator.createOpportunityByLeadConversion(lead, account);
                 break;
             } else {

@@ -41,21 +41,4 @@ public abstract class Item {
         setPhoneNumber(phoneNumber);
     }
 
-    // Setters
-
-    public void setEmail(String email) {
-        try{
-            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-            Matcher m = p.matcher(email);
-            boolean matchFound = m.matches();
-            if (matchFound) {
-                this.email = email;
-            } else {
-                throw new InputMismatchException();
-            }
-        } catch(InputMismatchException ex){
-            System.out.println("Wrong email address");
-        }
-    }
-
 }

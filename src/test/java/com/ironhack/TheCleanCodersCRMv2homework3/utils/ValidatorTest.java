@@ -1,5 +1,6 @@
-package com.ironhack.TheCleanCodersCRMv2homework3.menu;
+package com.ironhack.TheCleanCodersCRMv2homework3.utils;
 
+import com.ironhack.TheCleanCodersCRMv2homework3.utils.Validator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
