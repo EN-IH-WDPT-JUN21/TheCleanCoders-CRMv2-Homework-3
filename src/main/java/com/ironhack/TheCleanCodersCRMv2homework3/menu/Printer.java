@@ -16,13 +16,28 @@ public class Printer {
         System.out.println("Incorrect command. Possible typo in the word \"" + wrongWord + "\". Please try again.");
     }
 
-    public void printExportErrorInfo(String filename) {
-        System.out.println("There was an error while exporting data to file " + filename);
-    }
+    public void pleaseWait() {
 
-    public void printImportErrorInfo(String filename) {
-        System.out.println("There was an error while importing data from file " + filename);
-    }   
+        try {
+
+            Thread.sleep(600);
+            System.out.print(Style.LIGHT_GRAY + "Please, wait.");
+            Thread.sleep(800);
+
+            int i = 0;
+            while (i < 2){
+                System.out.print(".");
+                Thread.sleep(800);
+                i++;
+            }
+
+            System.out.println(Style.DEFAULT + "");
+            Thread.sleep(600);
+
+        } catch (InterruptedException e) {
+        }
+
+    }
 
     public void welcomeMessage() {
         print("\n\n============================================================");
@@ -42,7 +57,8 @@ public class Printer {
         print("\n\nTo start using our cleanCRM, type the commands below. Type \"HELP\" for instructions");
       
     }
-      
+
+    // Info about usable commands
     public void helpPage() {
         System.out.println("=================================================");
         System.out.println("            The cleanCRM Help page");

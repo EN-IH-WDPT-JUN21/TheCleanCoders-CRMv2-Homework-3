@@ -39,17 +39,4 @@ class PrinterTest {
         assertNotEquals("Incorrect command. Possible typo in the word \"DIFFERENT-WRONG-WORD\". Please try again.", outputStreamCaptor.toString().trim());
     }
 
-    @Test
-    void printExportErrorInfo() {
-        printer.printExportErrorInfo("SOME_FILE");
-        assertEquals("There was an error while exporting data to file SOME_FILE", outputStreamCaptor.toString().trim());
-        assertNotEquals("There was an error while exporting data to file DIFFERENT_FILE", outputStreamCaptor.toString().trim());
-    }
-
-    @Test
-    void printImportErrorInfo() {
-        printer.printImportErrorInfo("SOME_FILE");
-        assertEquals("There was an error while importing data from file SOME_FILE", outputStreamCaptor.toString().trim());
-        assertNotEquals("There was an error while importing data from file DIFFERENT_FILE", outputStreamCaptor.toString().trim());
-    }
 }

@@ -58,6 +58,7 @@ public class Input {
         return answer;
     }
 
+    // Scanner closure, useful for exiting the application
     public void close() {
         scanner.close();
     }
