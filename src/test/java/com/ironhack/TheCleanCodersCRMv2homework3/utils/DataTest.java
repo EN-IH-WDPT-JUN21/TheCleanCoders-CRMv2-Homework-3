@@ -2,14 +2,10 @@ package com.ironhack.TheCleanCodersCRMv2homework3.utils;
 
 import com.ironhack.TheCleanCodersCRMv2homework3.TheCleanCodersCrMv2Homework3Application;
 import com.ironhack.TheCleanCodersCRMv2homework3.repository.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,6 +49,7 @@ class DataTest {
 
         assertEquals(numberSalesRepBefore + 5, numberSalesRepAfter);
     }
+
     @Test
     void populateRepos_correctImplementationOfContacts() {
 

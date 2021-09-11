@@ -1,8 +1,6 @@
 package com.ironhack.TheCleanCodersCRMv2homework3.menu;
 
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Command;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.Industry;
-import com.ironhack.TheCleanCodersCRMv2homework3.enums.ObjectType;
+import com.ironhack.TheCleanCodersCRMv2homework3.enums.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class InputTest {
 
     static Input input;
-    static Industry industry;
 
     @BeforeEach
     void setUp() {
@@ -26,14 +23,36 @@ class InputTest {
     }
 
     @Test
-    void getObjectType() {
+    void getObjectType_validType() {
         assertEquals(ObjectType.ACCOUNT, input.getObjectType("ACCOUNT"));
         assertEquals(ObjectType.ACCOUNT, input.getObjectType("account"));
-        assertNull(input.getObjectType("abc"));
+        assertNull(input.getObjectType("acount"));
 
-        assertEquals(ObjectType.ACCOUNT, input.getObjectType("ACCOUNTS"));
-        assertEquals(ObjectType.ACCOUNT, input.getObjectType("accounts"));
-        assertNull(input.getObjectType("abc"));
+        assertEquals(ObjectType.OPPORTUNITY, input.getObjectType("Opportunities"));
+        assertEquals(ObjectType.OPPORTUNITY, input.getObjectType("oPPORTunity"));
+        assertNull(input.getObjectType("ObjectType.OPPORTUNITY"));
+    }
+
+    @Test
+    void getReportBy_validType() {
+        assertEquals(ReportBy.SALESREP, input.getReportBy("SaLESREPS"));
+        assertEquals(ReportBy.SALESREP, input.getReportBy("salesrep"));
+        assertNull(input.getReportBy("sales rep"));
+
+        assertEquals(ReportBy.CITY, input.getReportBy("CITy"));
+        assertEquals(ReportBy.CITY, input.getReportBy("Cities"));
+        assertNull(input.getReportBy("ReportBy"));
+    }
+
+    @Test
+    void getStateObject_validType() {
+        assertEquals(StateObject.EMPLOYEECOUNT, input.getStateObject("employeeCount"));
+        assertEquals(StateObject.EMPLOYEECOUNT, input.getStateObject("EMPLOYEEcounts"));
+        assertNull(input.getReportBy("employee account"));
+
+        assertEquals(StateObject.QUANTITY, input.getStateObject("Quantity"));
+        assertEquals(StateObject.QUANTITY, input.getStateObject("quantities"));
+        assertNull(input.getReportBy("stateObject"));
     }
 
 }

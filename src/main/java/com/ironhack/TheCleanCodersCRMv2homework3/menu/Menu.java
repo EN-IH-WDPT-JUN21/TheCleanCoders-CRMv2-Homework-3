@@ -38,7 +38,6 @@ public class Menu {
 
     private final Printer printer = new Printer();
     private final Input input = new Input(printer);
-//    private final FileManager fileManager = new FileManager(printer);
 
 
     public void controlLoop() throws InterruptedException {
@@ -66,10 +65,12 @@ public class Menu {
         input.close();
     }
 
+    // Separates each word of the input
     public String[] splitInput(String string) {
         return string.trim().split(" ");
     }
 
+    // Read the input and trigger the corresponding methods
     public void interpretInput(String[] inputList) throws InterruptedException {
         creator = new Creator(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository, input, printer);
         Command command = input.getCommandFromString(inputList[0]);
@@ -85,6 +86,7 @@ public class Menu {
                     create(objectType);
                 }
                 break;
+
             case SHOW:
                 objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
@@ -93,6 +95,7 @@ public class Menu {
                     show(objectType);
                 }
                 break;
+
             case LOOKUP:
                 objectType = input.getObjectType(inputList[1]);
                 if (Objects.isNull(objectType)) {
@@ -102,10 +105,12 @@ public class Menu {
                     lookup(objectType, id);
                 }
                 break;
+
             case CONVERT:
                 id = Integer.parseInt(inputList[1]);
                 convert(id);
                 break;
+
             case REPORT:
                 ReportTarget reportTarget = input.getReportTarget(inputList[1]);
                 ReportBy reportBy = input.getReportBy(inputList[3]);
@@ -119,6 +124,7 @@ public class Menu {
                     printer.print("Incorrect command structure. Please try again.");
                 }
                 break;
+
             case CLOSE_LOST:
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.CLOSED_LOST, id);
@@ -131,6 +137,7 @@ public class Menu {
                 id = Integer.parseInt(inputList[1]);
                 changeStatus(Status.OPEN, id);
                 break;
+
             case MEAN:
             case MEDIAN:
             case MIN:
@@ -142,10 +149,14 @@ public class Menu {
                     reportStates(command, stateObject);
                 }
                 break;
+
             case POPULATE:
                 data = new Data(accountRepository, salesRepRepository, contactRepository, leadRepository, opportunityRepository);
+                System.out.println(Style.LIGHT_GRAY + "\nThis operation may take some seconds");
+                printer.pleaseWait();
                 data.populateRepos();
                 break;
+
             case HELP:
                 printer.helpPage();
                 break;
@@ -193,6 +204,7 @@ public class Menu {
         }
     }
 
+    // Print an specific Object fetched from database
     public void lookup(ObjectType objectType, int id) {
         try{
             switch (objectType) {
@@ -237,7 +249,7 @@ public class Menu {
             if (answer.equals("Y") || answer.equals("YES")) {
                 creator.createAccount();
                 Thread.sleep(1000);
-                System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
+                System.out.println(Style.OCHER + "\nConverting LEAD to CONTACT..." + Style.DEFAULT);
                 Thread.sleep(2000);
                 creator.createContact(lead);
                 Thread.sleep(1800);
@@ -246,7 +258,9 @@ public class Menu {
             } else if (answer.equals("N") || answer.equals("NO")) {
                 int idAccount = creator.getExistingAccount();
                 Account account = accountRepository.findById(Long.valueOf(idAccount)).get();
-                System.out.println(Style.OCHER + "Converting Lead to Contact..." + Style.DEFAULT);
+                System.out.println(account);
+                Thread.sleep(800);
+                System.out.println(Style.OCHER + "\nConverting LEAD to CONTACT..." + Style.DEFAULT);
                 Thread.sleep(2000);
                 creator.createContact(lead, account);
                 Thread.sleep(1800);
@@ -257,13 +271,13 @@ public class Menu {
             }
         }
 
-        Thread.sleep(1400);
+        Thread.sleep(800);
         leadRepository.deleteById(Long.valueOf(idLead));
-        System.out.println(Style.OCHER + "\n\n\n..." + Style.DEFAULT);
-        Thread.sleep(1400);
-        System.out.println(Style.OCHER + "\n\n\nLead has been successfully converted and deleted.\n\n\n" + Style.DEFAULT);
+        printer.pleaseWait();
+        System.out.println(Style.OCHER + "LEAD HAS BEEN SUCCESSFULLY CONVERTED AND DELETED\n\n" + Style.DEFAULT);
     }
 
+    // Change the Opportunity status to Closed-Won, Closed-Lost or Open
     public void changeStatus(Status status, int id) {
         Opportunity opportunity;
 
@@ -281,6 +295,7 @@ public class Menu {
         System.out.println(Style.OCHER + "OPPORTUNITY with an id of " + id + " changed to " + status +".\n" + Style.DEFAULT);
     }
 
+    // Create a report by Sales Rep, Product, City, Country or Industry
     public void report(ReportTarget reportTarget, ReportBy reportBy) {
         System.out.println(Style.OCHER + "\n" + reportTarget + " BY " + reportBy + Style.DEFAULT);
 
@@ -372,6 +387,7 @@ public class Menu {
         System.out.println("\n");
     }
 
+    // Create a report of the current mean/median/max/min
     public void reportStates(Command command, StateObject stateObject) {
 
         switch (stateObject) {
