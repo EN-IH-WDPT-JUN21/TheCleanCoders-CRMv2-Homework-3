@@ -71,7 +71,7 @@ Report Targets Available ->                  LEAD /  OPPORTUNITY / CLOSED-WON / 
 Report By Objects Available ->               SALESREP /  PRODUCT / COUNTRY / CITY / INDUSTRY
 
 
-** SHOW command will be followed by the Object type in plural (e.g. ``show opportunities`` )
+ ** All Object types accepted in plural (e.g. OPPORTUNITY and OPPORTUNITIES are both accepted forms)
 <br> ** All commands are case-insensitive
 
 <br><br>
@@ -97,7 +97,8 @@ Report By Objects Available ->               SALESREP /  PRODUCT / COUNTRY / CIT
 ## Authors
 
 **TheCleanCoders**: Vitaliano Costa, Maravillas Fernández, Joao Lopes, Natalia Norberciak, Katarzyna Wąsik.
-  
-  ![](img/CleanCodersLogoSmaller.jpg)
+<p align="center"> 
+  <img src="https://raw.githubusercontent.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRMv2-Homework-3/main/img/CleanCodersLogoSmaller.jpg?token=ASBL6WKLN3BQJTYXYBUA25TBHYDIO")
 
 [comment]: <> (![CleanCodersLogo.JPG]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-MugglesAgainstMagic-Homework-1/blob/main/img/CleanCodersLogo.JPG&#41;)
+</p>
