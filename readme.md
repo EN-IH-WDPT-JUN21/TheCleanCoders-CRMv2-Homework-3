@@ -92,23 +92,10 @@ Report By Objects Available ->               SALESREP /  PRODUCT / COUNTRY / CIT
 ![](img/RelationsDiagram.png)
 
 <br><br>
-## · Screenshots
-
-[comment]: <> (![screenshot1.png]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRM-Homework-2/blob/main/img/Screenshot1.png&#41;)
-
-[comment]: <> (![screenshot3.png]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRM-Homework-2/blob/main/img/Screenshot3.png&#41;)
-
-[comment]: <> (![screenshot4.png]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRM-Homework-2/blob/main/img/Screenshot4.png&#41;)
-
-[comment]: <> (![screenshot6.png]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRM-Homework-2/blob/main/img/Screenshot6.png&#41;)
-
-[comment]: <> (![screenshot7.png]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRM-Homework-2/blob/main/img/Screenshot7.png&#41;)
-
-[comment]: <> (![screenshot8.png]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRM-Homework-2/blob/main/img/Screenshot8.png&#41;)
-
-<br><br>
 ## Authors
 
 **TheCleanCoders**: Vitaliano Costa, Maravillas Fernández, Joao Lopes, Natalia Norberciak, Katarzyna Wąsik.
+  
+  ![](img/CleanCodersLogo.jpg)
 
 [comment]: <> (![CleanCodersLogo.JPG]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-MugglesAgainstMagic-Homework-1/blob/main/img/CleanCodersLogo.JPG&#41;)
