@@ -36,7 +36,7 @@ https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRMv2-Homework-3
 
 2. Extract the ZIP file and open the directory as a project on an IDE such as IntelliJ
 
-3. Run the Main.Main.java file
+3. Run the TheCleanCodersCrMv2Homework3Application.java file
 
 4. Enjoy
 
