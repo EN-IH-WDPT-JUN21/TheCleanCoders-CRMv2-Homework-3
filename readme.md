@@ -98,7 +98,7 @@ Report By Objects Available ->               SALESREP /  PRODUCT / COUNTRY / CIT
 
 **TheCleanCoders**: Vitaliano Costa, Maravillas Fernández, Joao Lopes, Natalia Norberciak, Katarzyna Wąsik.
 <p align="center"> 
-  <img src="https://raw.githubusercontent.com/EN-IH-WDPT-JUN21/TheCleanCoders-CRMv2-Homework-3/main/img/CleanCodersLogoSmaller.jpg?token=ASBL6WKLN3BQJTYXYBUA25TBHYDIO")
+  <img src="https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-MugglesAgainstMagic-Homework-1/blob/main/img/CleanCodersLogo.JPG")
 
 [comment]: <> (![CleanCodersLogo.JPG]&#40;https://github.com/EN-IH-WDPT-JUN21/TheCleanCoders-MugglesAgainstMagic-Homework-1/blob/main/img/CleanCodersLogo.JPG&#41;)
 </p>
