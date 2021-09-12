@@ -20,6 +20,8 @@ This CRM will help you:
 
 · All data will be securely stored in a Database, for later access.
 
+**For testing purposes, please use the command POPULATE to generate a sample of data**
+
 <br><br>
 ## · Getting started
 
